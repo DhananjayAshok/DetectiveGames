@@ -1,0 +1,19 @@
+Drag in a suspect prefab object into scene view
+Under body create a physical rep with a collider. Give this body a tag of suspect
+Set the isGuilty bool as required
+Then go to the scene specific folder and in the folder of your scene make a script 
+	This script should inherit from TreeCreationScript
+	You need to define a 
+	public override CreateTree(){
+	}
+	Inside this do whatever you want but make sure by the end the baseTree variable is set to a valid Conversation Tree
+
+Finally drag the script and apply it to the suspect you want to have this conversation tree. 
+
+Hints:
+In the CreateTree functions you can use the utility function
+	ConversationTreeFromList that takes in an integer index and returns a CT as defined in the parent class. 
+	The baseTree.addChild(subtree) function can be used to add children to any tree.	
+		If you try adding more than 4 children it does nothing.
+
+

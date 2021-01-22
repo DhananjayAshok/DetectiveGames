@@ -1,18 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractionScript : MonoBehaviour
 {
     public AudioClip bugClip;
     public AudioClip foundClueClip;
     public AudioClip clueBookClip;
+    public AudioClip foundSuspectClip;
+    public AudioClip interactWithInnocentAccusedClip;
+    public AudioClip interactWithGuiltyAccusedClip;
+    public AudioClip accuseClip;
     public GameObject interactionText;
+    public GameObject accusationSlider;
     public HandleClueScript handleClueScript;
+    public HandleSuspectScript handleSuspectScript;
 
     GameObject currentClue;
     GameObject currentSuspect;
     AudioSource audioSource;
+    int counter = 0;
+    int accuseCount = 50;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +50,9 @@ public class InteractionScript : MonoBehaviour
         else if(collider.tag == "suspect"){
             currentSuspect = getCurrentSuspectFromCollider(collider);
             interactionText.SetActive(true);
+            if (!currentSuspect.GetComponent<SuspectScript>().hasBeenAccused) { 
+                accusationSlider.SetActive(true); 
+            }
         }
         
     }
@@ -56,6 +68,10 @@ public class InteractionScript : MonoBehaviour
         if (collider.tag == "suspect") {
             currentSuspect = null;
             interactionText.SetActive(false);
+            accusationSlider.SetActive(false);
+            if (handleSuspectScript.inConversation) {
+                handleSuspectScript.LeaveConversation();
+            }
         }
     }
 
@@ -67,7 +83,13 @@ public class InteractionScript : MonoBehaviour
             //Debug.Log("None");
         }
         else if ((currentClue != null && currentSuspect != null) || (currentSuspect != null)) {
-            currentSuspect.GetComponent<SuspectScript>().isSpokenTo();
+            if (!currentSuspect.GetComponent<SuspectScript>().hasBeenAccused)
+            {
+                StartCoroutine(suspectInteract());
+            }
+            else {
+                StartCoroutine(accusedSuspectInteract());
+            }
         }
         else
         {
@@ -86,12 +108,63 @@ public class InteractionScript : MonoBehaviour
         }
     }
 
-    void Accuse() {
-        
+    IEnumerator suspectInteract() {
+        audioSource.clip = foundSuspectClip;
+        //double waitTime = foundSuspectClip.length; //+ ((double) 2.0);
+        audioSource.Play();
+        Debug.Log("Interact with suspect");
+        yield return new WaitForSeconds(foundSuspectClip.length + 1.0f);
+        handleSuspectScript.StartConversation(currentSuspect);
     }
 
-    void StartAccusation() {
-        
+    IEnumerator accusedSuspectInteract() {
+        if (currentSuspect.GetComponent<SuspectScript>().isGuilty)
+        {
+            audioSource.clip = interactWithGuiltyAccusedClip;
+        }
+        else {
+            audioSource.clip = interactWithInnocentAccusedClip;
+        }
+        //double waitTime = foundSuspectClip.length; //+ ((double) 2.0);
+        audioSource.Play();
+        Debug.Log("Interact with accused suspect");
+        yield return new WaitForSeconds(audioSource.clip.length + 1.0f);
+        currentSuspect.GetComponent<SuspectScript>().isSpokenToAfterAccuse();
+    }
+
+    IEnumerator suspectAccuse() {
+        audioSource.clip = accuseClip;
+        //double waitTime = foundSuspectClip.length; //+ ((double) 2.0);
+        audioSource.Play();
+        Debug.Log("AccuseClip");
+        yield return new WaitForSeconds(accuseClip.length + 1.0f);
+        currentSuspect.GetComponent<SuspectScript>().isAccused();
+        yield return new WaitForSeconds(currentSuspect.GetComponent<SuspectScript>().accusedClip.length+0.2f);
+        currentSuspect.GetComponent<SuspectScript>().hasBeenAccused = true;
+        handleSuspectScript.Accusation(currentSuspect);
+
+    }
+
+    void Accuse() {
+        if (currentSuspect == null)
+        {
+            audioSource.clip = bugClip;
+            audioSource.Play();
+            Debug.Log("Null Current Suspect");
+        }
+        else
+        {
+            if (!currentSuspect.GetComponent<SuspectScript>().hasBeenAccused) {
+                StartCoroutine(suspectAccuse());
+                
+                
+            }
+        }
+    }
+
+    void UpdateSlider() {
+        float normalized = ((float) counter) / ((float) accuseCount);
+        accusationSlider.GetComponent<Slider>().value = normalized;
     }
     
     // Update is called once per frame
@@ -101,5 +174,21 @@ public class InteractionScript : MonoBehaviour
         {
             Interact();
         }
+        if (Input.GetKey(KeyCode.Return))
+        {
+            counter++;
+            if (counter >= accuseCount)
+            {
+                counter = accuseCount;
+                Accuse();
+            }
+            UpdateSlider();
+        }
+        if (Input.GetKeyUp(KeyCode.Return)) {
+            counter = 0;
+            UpdateSlider();
+        }
+
+        
     }
 }

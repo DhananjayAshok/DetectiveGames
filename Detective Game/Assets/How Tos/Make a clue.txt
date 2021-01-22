@@ -1,5 +1,5 @@
 Add the Clue prefab to the scene
-Under the object child of this clue, create a physical representation that has a collider and a rigidbody. (make sure it has both and collider is not a trigger collider)
+Under the object child of this clue, create a physical representation that has a collider and a no rigidbody. (make sure it has both and collider is not a trigger collider)
 	Make sure to set the tag of this physical rep to a clue
 	If you cant interact with objects when you try this is why
 Go to clue script of the clue object and change the clue string
