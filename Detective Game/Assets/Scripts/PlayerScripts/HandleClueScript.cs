@@ -7,6 +7,7 @@ public class HandleClueScript : MonoBehaviour
 {
     public GameObject cluePopup;
     public Text cluePopupText;
+    public Image cluePopupImage;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,9 @@ public class HandleClueScript : MonoBehaviour
         ClueScript cs = clue.GetComponent<ClueScript>();
         cs.discovered = true;
         string clueString = cs.clueString;
+        Sprite clueSprite = cs.clueSprite;
         cluePopupText.text = clueString;
+        cluePopupImage.sprite = clueSprite;
         if (isDisplaying())
         {
             closePopup();

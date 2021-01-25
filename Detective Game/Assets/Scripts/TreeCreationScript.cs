@@ -37,5 +37,9 @@ public class TreeCreationScript : MonoBehaviour
     public ConversationTree ConversationTreeFromList(int index) {
         return new ConversationTree(getQuestion(index), getClip(index));
     }
+
+    public ConversationTree CTFL(int index) {
+        return ConversationTreeFromList(index);
+    }
     
 }

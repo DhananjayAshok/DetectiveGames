@@ -12,7 +12,7 @@ public class InteractionScript : MonoBehaviour
     public AudioClip interactWithInnocentAccusedClip;
     public AudioClip interactWithGuiltyAccusedClip;
     public AudioClip accuseClip;
-    public GameObject interactionText;
+    public GameObject interactionButton;
     public GameObject accusationSlider;
     public HandleClueScript handleClueScript;
     public HandleSuspectScript handleSuspectScript;
@@ -45,11 +45,11 @@ public class InteractionScript : MonoBehaviour
         if (collider.tag == "clue") {
             //Debug.Log("Collision");
             currentClue = getCurrentClueFromCollider(collider);
-            interactionText.SetActive(true);
+            interactionButton.SetActive(true);
         }
         else if(collider.tag == "suspect"){
             currentSuspect = getCurrentSuspectFromCollider(collider);
-            interactionText.SetActive(true);
+            interactionButton.SetActive(true);
             if (!currentSuspect.GetComponent<SuspectScript>().hasBeenAccused) { 
                 accusationSlider.SetActive(true); 
             }
@@ -62,12 +62,12 @@ public class InteractionScript : MonoBehaviour
 
         if (collider.tag == "clue") {
             currentClue = null;
-            interactionText.SetActive(false);
+            interactionButton.SetActive(false);
             handleClueScript.closePopup();
         }
         if (collider.tag == "suspect") {
             currentSuspect = null;
-            interactionText.SetActive(false);
+            interactionButton.SetActive(false);
             accusationSlider.SetActive(false);
             if (handleSuspectScript.inConversation) {
                 handleSuspectScript.LeaveConversation();

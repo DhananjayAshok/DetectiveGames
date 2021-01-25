@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c73982137a1a5b74d9cc4777c0f0fa88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueString: 
+  clueString: This is a clue. Finding it is supposed to help you
+  clueSprite: {fileID: 21300000, guid: 0536d8ada72a6ac4695386ea4bcd1ebe, type: 3}
   discovered: 0
 --- !u!1 &2836877161432667328
 GameObject:

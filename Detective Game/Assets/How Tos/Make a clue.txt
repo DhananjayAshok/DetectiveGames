@@ -3,3 +3,5 @@ Under the object child of this clue, create a physical representation that has a
 	Make sure to set the tag of this physical rep to a clue
 	If you cant interact with objects when you try this is why
 Go to clue script of the clue object and change the clue string
+Also change the clue image to a sprite of your choosing
+	To create a unity sprite you must import an image and then in the inspector make sure texture type is sprite 
