@@ -1,5 +1,5 @@
 You will need to have a humanoid marked FBX Model. Invector has a default
-	Mixamo has nice ones online
+	Mixamo has nice ones online. Go to https://www.mixamo.com/#/?page=1&type=Character and download a model. Then in unity import it, select it in project view and go to materials, set Location to Use External Materials (Legacy) and apply and fix
 Go to the top bar and click invector -> Basic Locomotion -> Create... 
 Then select the FBX model you want rest will happen for you
 Make the playerAttachment prefab a child of the basic controller

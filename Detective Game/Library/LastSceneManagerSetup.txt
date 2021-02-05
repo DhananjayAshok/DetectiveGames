@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scene Specific/First/Castle wireframe 1.unity
+- path: Assets/Scene Specific/TaleOfTwoWorlds/TaleOfTwoTruths.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

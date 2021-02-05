@@ -2971,7 +2971,7 @@ MonoBehaviour:
   audioSource: {fileID: 891640336}
   succesClip: {fileID: 8300000, guid: 68dd10b3959753d4bb9951e380db4873, type: 3}
   failureClip: {fileID: 8300000, guid: d92b2fec2615ead4ca9fe7398bafe84e, type: 3}
-  leaveConversationClip: {fileID: 8300000, guid: 5d30c3caa43811e4ea5d9e71d62dc0ab,
+  leaveConversationClip: {fileID: 8300000, guid: db16511d49f13cc46a196cb672908402,
     type: 3}
   inConversation: 0
   buttons:
@@ -3094,12 +3094,12 @@ MonoBehaviour:
   bugClip: {fileID: 8300000, guid: 24199bef1d112e747857e6af43cb439c, type: 3}
   foundClueClip: {fileID: 8300000, guid: 7063751e114b242468f8bbc71ca31b92, type: 3}
   clueBookClip: {fileID: 8300000, guid: 42e3260d5598be0498d63a3f4521dab9, type: 3}
-  foundSuspectClip: {fileID: 8300000, guid: a264ba77cf6bee843babb3b320cdc79c, type: 3}
+  foundSuspectClip: {fileID: 8300000, guid: a742b8bd99baed0438c68231da320e6b, type: 3}
   interactWithInnocentAccusedClip: {fileID: 8300000, guid: 393cc82de7d14a148be99b1961c106d8,
     type: 3}
   interactWithGuiltyAccusedClip: {fileID: 8300000, guid: a5cc6499f40ad5943bfec63326d36517,
     type: 3}
-  accuseClip: {fileID: 8300000, guid: 0fe0ef75617950947b5f7bb1d5b99668, type: 3}
+  accuseClip: {fileID: 8300000, guid: c4edfd5696a5b4a47858c6ddb9ace311, type: 3}
   interactionButton: {fileID: 3668891066402521269}
   accusationSlider: {fileID: 1854680961528976553}
   handleClueScript: {fileID: 1988975075}
