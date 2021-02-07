@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class ClueScript : MonoBehaviour
 {
+    [TextArea]
     public string clueString;
+
     public Sprite clueSprite;
     public bool discovered = false;
 
