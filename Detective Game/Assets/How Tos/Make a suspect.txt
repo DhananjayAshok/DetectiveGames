@@ -19,6 +19,12 @@ In the CreateTree functions you can use the utility function
 
 See the Make a 3rd person to do for how to import Mixamo characters
 
+6. To give animations 
+	Go to the physical rep and give the object an animator component
+	Select a controller and pick one from the default options given
+	
+	Select the avatar that either matches the body fbx model if there is already such an avatar or the avatar with the same name as the controller	
+	Dead bodies can be animated in this way too so if you want to make dead body clues this is it. 
 --------------------------------------------------------------------------------------
 Instead of doing step 4 and 5 you could just also use one of the base tree structures scripts
 	This is more convinient but limits the shape and size of your tree

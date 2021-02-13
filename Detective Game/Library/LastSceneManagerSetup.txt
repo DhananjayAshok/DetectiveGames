@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scene Specific/TaleOfTwoWorlds/TaleOfTwoTruths.unity
+- path: Assets/Scene Specific/Bhavya's Next/Next.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
