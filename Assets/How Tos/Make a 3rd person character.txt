@@ -1,0 +1,7 @@
+You will need to have a humanoid marked FBX Model. Invector has a default
+	Mixamo has nice ones online. Go to https://www.mixamo.com/#/?page=1&type=Character and download a model. Then in unity import it, select it in project view and go to materials, set Location to Use External Materials (Legacy) and apply and fix
+Go to the top bar and click invector -> Basic Locomotion -> Create... 
+Then select the FBX model you want rest will happen for you
+Make the playerAttachment prefab a child of the basic controller
+If you want to change the player audio files then go to the player attachment file and select the audio files you want
+To change the lines said by the narrator at the start of the game go to the interaction sphere child of the player attachment and set the audioclip of the audiosource as required
