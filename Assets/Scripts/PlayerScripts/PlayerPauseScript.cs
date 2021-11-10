@@ -149,7 +149,7 @@ public class PlayerPauseScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !isMiniPaused)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isMiniPaused && playerPausePoint != null)
         {
             Process();
         }

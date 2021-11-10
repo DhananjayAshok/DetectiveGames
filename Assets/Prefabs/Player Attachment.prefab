@@ -5151,7 +5151,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 42e3260d5598be0498d63a3f4521dab9, type: 3}
   foundSuspectClips:
     clips:
-    - {fileID: 0}
+    - {fileID: 8300000, guid: f2094263cd731c34c82191695de4f313, type: 3}
   interactWithInnocentAccusedClips:
     clips: []
   interactWithGuiltyAccusedClips:
@@ -5159,7 +5159,8 @@ MonoBehaviour:
   accuseClips:
     clips: []
   leaveConversationClips:
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 24199bef1d112e747857e6af43cb439c, type: 3}
   narratorIntroductionClips:
     clips:
     - {fileID: 8300000, guid: ffcf14c8b1ab7c942b94517ead9b5cac, type: 3}
