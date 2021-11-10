@@ -14,14 +14,21 @@ public class PlayerPauseScript : MonoBehaviour
     private Vector3 prevPosition;
     private Quaternion prevRotation;
     private MenuAudioScript menuAudioScript;
+
+    [HideInInspector]
     public bool isPaused;
+    [HideInInspector]
     public bool isMiniPaused;
+
+    [Header("Must Assign to Mind Palace Pause Point")]
+    public Transform playerPausePoint;
+
+    [Space(10)]
+    [Header("Internal Variables (Can ignore)")]
+    public Camera pauseCam;
     public Canvas mainCanvas;
     public Canvas pauseCanvas;
     public GameObject pauseCanvasBackground;
-
-    public Transform playerPausePoint;
-    public Camera pauseCam;
 
     void SaveTransform() {
         prevPosition = playerObject.transform.position;

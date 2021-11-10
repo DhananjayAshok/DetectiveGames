@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HandleClueScript : MonoBehaviour
 {
+    [Header("Internal Variables (Can ignore)")]
     public GameObject cluePopup;
     public Text clueNameText;
     public Text cluePopupText;

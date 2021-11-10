@@ -5,22 +5,30 @@ using UnityEngine.UI;
 
 public class InteractionScript : MonoBehaviour
 {
-    public AudioClip bugClip;
-    public AudioClip foundClueClip;
-    public AudioClip clueBookClip;
-    public AudioClip foundSuspectClip;
-    public AudioClip interactWithInnocentAccusedClip;
-    public AudioClip interactWithGuiltyAccusedClip;
-    public AudioClip accuseClip;
-    public AudioClip narratorClip;
+    [Space(10)]
+    [Header("UI Customization")]
     public GameObject interactionButton;
     public GameObject accusationSlider;
+
+    [Space(10)]
+    [Header("Internal Variables (Can ignore)")]
     public HandleClueScript handleClueScript;
     public HandleSuspectScript handleSuspectScript;
     public ClueContentScript clueContentScript;
+    public AudioManagementScript audioManagementScript;
+    [HideInInspector]
     public AudioSource audioSource;
-
+    [HideInInspector]
     public GodClueScript godClueScript;
+
+    private AudioGroup bugClips;
+    private AudioGroup foundClueClips;
+    private AudioGroup clueBookClips;
+    private AudioGroup foundSuspectClips;
+    private AudioGroup interactWithInnocentAccusedClips;
+    private AudioGroup interactWithGuiltyAccusedClips;
+    private AudioGroup accuseClips;
+    private AudioGroup narratorIntroductionClips;
 
     GameObject currentClue;
     GameObject currentSuspect;
@@ -30,7 +38,15 @@ public class InteractionScript : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.clip = narratorClip;
+        bugClips = audioManagementScript.bugClips;
+        foundClueClips = audioManagementScript.foundClueClips;
+        clueBookClips = audioManagementScript.clueBookClips;
+        foundSuspectClips = audioManagementScript.foundSuspectClips;
+        interactWithInnocentAccusedClips = audioManagementScript.interactWithInnocentAccusedClips;
+        interactWithGuiltyAccusedClips = audioManagementScript.interactWithGuiltyAccusedClips;
+        accuseClips = audioManagementScript.accuseClips;
+        narratorIntroductionClips = audioManagementScript.narratorIntroductionClips;
+        audioSource.clip = narratorIntroductionClips.Sample();
         audioSource.loop = false;
         audioSource.Play();
         currentClue = null;
@@ -86,7 +102,7 @@ public class InteractionScript : MonoBehaviour
     void Interact() {
         if (currentClue == null && currentSuspect == null)
         {
-            audioSource.clip = bugClip;
+            audioSource.clip = bugClips.Sample();
             audioSource.Play();
             //Debug.Log("None");
         }
@@ -103,12 +119,12 @@ public class InteractionScript : MonoBehaviour
         {
             if (currentClue.GetComponent<ClueScript>().discovered)
             {
-                audioSource.clip = clueBookClip;
+                audioSource.clip = clueBookClips.Sample();
             }
             else
             {
 
-                audioSource.clip = foundClueClip;
+                audioSource.clip = foundClueClips.Sample();
                 ClueScript cs = currentClue.GetComponent<ClueScript>();
                 int index = godClueScript.noCluesDiscovered;
                 godClueScript.addClue(cs);
@@ -121,21 +137,21 @@ public class InteractionScript : MonoBehaviour
     }
 
     IEnumerator suspectInteract() {
-        audioSource.clip = foundSuspectClip;
+        audioSource.clip = foundSuspectClips.Sample();
         //double waitTime = foundSuspectClip.length; //+ ((double) 2.0);
         audioSource.Play();
         Debug.Log("Interact with suspect");
-        yield return new WaitForSeconds(foundSuspectClip.length + 1.0f);
+        yield return new WaitForSeconds(audioSource.clip.length + 1.0f);
         handleSuspectScript.StartConversation(currentSuspect);
     }
 
     IEnumerator accusedSuspectInteract() {
         if (currentSuspect.GetComponent<SuspectScript>().isGuilty)
         {
-            audioSource.clip = interactWithGuiltyAccusedClip;
+            audioSource.clip = interactWithGuiltyAccusedClips.Sample();
         }
         else {
-            audioSource.clip = interactWithInnocentAccusedClip;
+            audioSource.clip = interactWithInnocentAccusedClips.Sample();
         }
         //double waitTime = foundSuspectClip.length; //+ ((double) 2.0);
         audioSource.Play();
@@ -145,11 +161,11 @@ public class InteractionScript : MonoBehaviour
     }
 
     IEnumerator suspectAccuse() {
-        audioSource.clip = accuseClip;
+        audioSource.clip = accuseClips.Sample();
         //double waitTime = foundSuspectClip.length; //+ ((double) 2.0);
         audioSource.Play();
         Debug.Log("AccuseClip");
-        yield return new WaitForSeconds(accuseClip.length + 1.0f);
+        yield return new WaitForSeconds(audioSource.clip.length + 1.0f);
         currentSuspect.GetComponent<SuspectScript>().isAccused();
         yield return new WaitForSeconds(currentSuspect.GetComponent<SuspectScript>().accusedClip.length+0.2f);
         currentSuspect.GetComponent<SuspectScript>().hasBeenAccused = true;
@@ -160,7 +176,7 @@ public class InteractionScript : MonoBehaviour
     void Accuse() {
         if (currentSuspect == null)
         {
-            audioSource.clip = bugClip;
+            audioSource.clip = bugClips.Sample();
             audioSource.Play();
             Debug.Log("Null Current Suspect");
         }

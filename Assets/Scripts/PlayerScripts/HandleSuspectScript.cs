@@ -9,19 +9,23 @@ public class HandleSuspectScript : MonoBehaviour
 
 
     public AudioSource audioSource;
-    public AudioClip succesClip;
-    public AudioClip failureClip;
-    public AudioClip leaveConversationClip;
     public bool inConversation = false;
+    public AudioManagementScript audioManagementScript;
 
 
     public Button[] buttons;
     private ConversationTree currentTree;
     private GameObject currentSuspect;
-    
-    
+    AudioGroup narratorSuccessClips;
+    AudioGroup narratorFailureClips;
+    AudioGroup leaveConversationClips;
+
+
     void Start()
     {
+        narratorSuccessClips = audioManagementScript.narratorSuccessClips;
+        narratorFailureClips = audioManagementScript.narratorFailureClips;
+        leaveConversationClips = audioManagementScript.leaveConversationClips;
         //buttons = {button0, button1, button2, button3};
     }
 
@@ -43,14 +47,14 @@ public class HandleSuspectScript : MonoBehaviour
 
     void Success()
     {
-        audioSource.clip = succesClip;
+        audioSource.clip = narratorSuccessClips.Sample();
         audioSource.Play();
         Debug.Log("SuccessClip");
     }
 
     void Failure()
     {
-        audioSource.clip = failureClip;
+        audioSource.clip = narratorFailureClips.Sample();
         audioSource.Play();
         Debug.Log("FailureClip");
     }
@@ -117,7 +121,7 @@ public class HandleSuspectScript : MonoBehaviour
         deactivateButtons();
         currentSuspect = null;
         currentTree = null;
-        audioSource.clip = leaveConversationClip;
+        audioSource.clip = leaveConversationClips.Sample();
         audioSource.Play();
     }
 

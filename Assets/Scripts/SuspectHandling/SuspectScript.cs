@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class SuspectScript : MonoBehaviour
@@ -10,6 +11,8 @@ public class SuspectScript : MonoBehaviour
     public AudioClip afterAccusedClip;
     public bool isGuilty;
     public bool hasBeenAccused;
+    public TextMesh nameText;
+    public string suspectName;
     public ConversationTree baseTree;
     public TreeCreationScript treeCreationScript;
 
@@ -21,6 +24,7 @@ public class SuspectScript : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         treeCreationScript = GetComponent<TreeCreationScript>();
         baseTree = treeCreationScript.getBaseTree();
+        nameText.text = suspectName;
         //Debug.Log(baseTree);
 
     }

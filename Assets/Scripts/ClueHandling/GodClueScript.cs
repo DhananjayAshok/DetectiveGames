@@ -6,8 +6,11 @@ public class GodClueScript : MonoBehaviour
 {
     public int noClues = 10; // Should store the number of different clues that could be added. 
     public int noAvailableAutopsies = 5; // Should store the maximum number of allowable autopsies. 
+    [HideInInspector]
     public int noAutopsiesPerformed = 0;
+    [HideInInspector]
     public int noCluesDiscovered = 0;
+    [HideInInspector]
     public ClueObject[] discoveredClues;
 
     // Start is called before the first frame update

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MenuButtonScript : MonoBehaviour
 {
-
+    [Header("Internal Variables (Can ignore)")]
     public GameObject backButton;
     public GameObject autopsyButton;
     public Text autopsyButtonText;
@@ -15,11 +15,14 @@ public class MenuButtonScript : MonoBehaviour
     public Text clueString;
     public Text clueAutopsy;
     public Image clueImage;
-    public GodClueScript godClueScript;
-    public ClueObject currentClueObject;
     public ClueContentScript clueContentScript;
     public MenuAnimationScript menuAnimationScript;
     public MenuAudioScript menuAudioScript;
+    [HideInInspector]
+    public GodClueScript godClueScript;
+    [HideInInspector]
+    public ClueObject currentClueObject;
+    [HideInInspector]
     public float autopsyWaitTime;
 
     // Start is called before the first frame update

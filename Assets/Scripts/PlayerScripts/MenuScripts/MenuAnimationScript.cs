@@ -5,6 +5,7 @@ using UnityEditor.Animations;
 
 public class MenuAnimationScript : MonoBehaviour
 {
+    [Header("Internal Variables (Can ignore)")]
     public Animator panelAnimator;
     public Animator scrollviewAnimator;
     // Start is called before the first frame update

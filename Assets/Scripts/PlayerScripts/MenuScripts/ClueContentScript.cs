@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ClueContentScript : MonoBehaviour
 {
+    [Header("Internal Variables (Can ignore)")]
     public GameObject clueButtonPrefab;
     public GameObject clueContent;
+    [HideInInspector]
     public int noCluesDiscovered = 0;
     private GodClueScript godClueScript;
 

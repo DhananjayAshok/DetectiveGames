@@ -5,38 +5,69 @@ using UnityEngine;
 public class MenuAudioScript : MonoBehaviour
 {
 
+    [Space(10)]
+    [Header("Menu Background Music Clips")]
+    private AudioGroup pauseMenuClips;
+    private AudioGroup mainMenuClips;
+
+
+    [Space(10)]
+    [Header("Clicks and Transition Clips")]
+    private AudioGroup clueClickClips;
+    private AudioGroup backClickClips;
+    private AudioGroup transitionClips;
+    private AudioGroup transitionBackClips;
+
+    [Space(10)]
+    [Header("Lab Request SFX Clips")]
+    private AudioGroup autopsyRequestClips;
+    private AudioGroup autopsyFailClips;
+    private AudioGroup autopsySuccesClips;
+    private AudioGroup autopsyErrorClips;
+
+    [Space(10)]
+    [Header("Confrontation Clips")]
+    private AudioGroup confrontClips;
+
+    [Space(10)]
+    [Header("Internal Variables (Can ignore)")]
     public AudioSource pauseMenuAudioSource;
-    public AudioClip transitionClip;
-    public AudioClip pauseMenuClip;
-    public AudioClip transitionBackClip;
-    public AudioClip mainMenuClip;
-    public AudioClip autopsyRequestClip;
-    public AudioClip clueClickClip;
-    public AudioClip confrontClips;
-    public AudioClip backClickClip;
-    public AudioClip autopsyFailClip;
-    public AudioClip autopsySuccesClip;
-    public AudioClip autopsyErrorClip;
+    public AudioManagementScript audioManagementScript;
+
 
 
     AudioSource audioSource;
 
+
+    void Awake() {
+        pauseMenuClips = audioManagementScript.pauseMenuClips;
+        mainMenuClips = audioManagementScript.mainMenuClips;
+        clueClickClips = audioManagementScript.clueClickClips;
+        backClickClips = audioManagementScript.backClickClips;
+        transitionClips = audioManagementScript.transitionClips;
+        transitionBackClips = audioManagementScript.transitionBackClips;
+        autopsyRequestClips = audioManagementScript.autopsyRequestClips;
+        autopsyFailClips = audioManagementScript.autopsyFailClips;
+        autopsySuccesClips = audioManagementScript.autopsySuccessClips;
+        autopsyErrorClips = audioManagementScript.autopsyErrorClips;
+        confrontClips = audioManagementScript.confrontClips;
+        audioSource = GetComponent<AudioSource>();
+    }
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         PlayMain();
     
     }
 
     void PlayMain() {
-        audioSource.clip = mainMenuClip;
+        mainMenuClips.SetSourceClip(audioSource);
         audioSource.loop = true;
         audioSource.Play();
     }
 
     void PlayPause() {
-        audioSource.clip = pauseMenuClip;
+        pauseMenuClips.SetSourceClip(audioSource);
         audioSource.loop = true;
         audioSource.Play();
     }
@@ -52,57 +83,57 @@ public class MenuAudioScript : MonoBehaviour
 
     IEnumerator MainToPauseCoroutine()
     {
-        audioSource.clip = transitionClip;
+        transitionClips.SetSourceClip(audioSource);
         audioSource.loop = false;
         audioSource.Play();
         //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(transitionClip.length + 0.5f);
+        yield return new WaitForSeconds(audioSource.clip.length + 0.5f);
         PlayPause();
     }
 
     IEnumerator PauseToMainCoroutine()
     {
-        audioSource.clip = transitionBackClip;
+        transitionBackClips.SetSourceClip(audioSource);
         audioSource.loop = false;
         audioSource.Play();
         //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(transitionBackClip.length + 0.5f);
+        yield return new WaitForSeconds(audioSource.clip.length + 0.5f);
         PlayMain();
     }
 
     public void ClueClick() {
-        pauseMenuAudioSource.clip = clueClickClip;
+        clueClickClips.SetSourceClip(pauseMenuAudioSource);
         pauseMenuAudioSource.Play();
     }
 
     public void BackClick() {
-        pauseMenuAudioSource.clip = backClickClip;
+        backClickClips.SetSourceClip(pauseMenuAudioSource);
         pauseMenuAudioSource.Play();
     }
 
     public float getAutopsyWaitTime() {
-        return autopsyRequestClip.length;
+        return autopsyRequestClips.getMaxClipLength();
     }
 
     public void AutopsyRequest() {
-        pauseMenuAudioSource.clip = autopsyRequestClip;
+        autopsyRequestClips.SetSourceClip(pauseMenuAudioSource);
         pauseMenuAudioSource.Play();
     }
 
     public void AutopsySuccess() {
-        pauseMenuAudioSource.clip = autopsySuccesClip;
+        autopsySuccesClips.SetSourceClip(pauseMenuAudioSource);
         pauseMenuAudioSource.Play();
     }
 
     public void AutopsyFailure()
     {
-        pauseMenuAudioSource.clip = autopsyFailClip;
+        autopsyFailClips.SetSourceClip(pauseMenuAudioSource);
         pauseMenuAudioSource.Play();
     }
 
     public void AutopsyError()
     {
-        pauseMenuAudioSource.clip = autopsyErrorClip;
+        autopsyErrorClips.SetSourceClip(pauseMenuAudioSource);
         pauseMenuAudioSource.Play();
     }
 

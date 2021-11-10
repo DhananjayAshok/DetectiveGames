@@ -9,7 +9,9 @@ public class ClueButtonScript : MonoBehaviour
     public Text clueNameText;
     public Text clueLocationText;
     public Image cluePopupImage;
+    [HideInInspector]
     public ClueObject clueObject;
+    [HideInInspector]
     public GameObject playerAttachment;
     private MenuButtonScript menuButtonScript;
 

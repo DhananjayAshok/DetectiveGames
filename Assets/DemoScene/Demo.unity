@@ -1008,10 +1008,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 77193865}
     m_Modifications:
-    - target: {fileID: 811899087, guid: 1bab74c6a8df9a0478a349243b5efc31, type: 3}
-      propertyPath: m_Volume
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 1967601982, guid: 1bab74c6a8df9a0478a349243b5efc31, type: 3}
       propertyPath: playerPausePoint
       value: 
@@ -1036,6 +1032,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.0000076293945
       objectReference: {fileID: 0}
+    - target: {fileID: 5784127561319968234, guid: 1bab74c6a8df9a0478a349243b5efc31,
+        type: 3}
+      propertyPath: succesClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 79d0598687ea4314d8de7168ac9ba659, type: 3}
     - target: {fileID: 7956122392596906605, guid: 1bab74c6a8df9a0478a349243b5efc31,
         type: 3}
       propertyPath: m_RootOrder
@@ -1096,6 +1097,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Attachment
       objectReference: {fileID: 0}
+    - target: {fileID: 7956122393731989888, guid: 1bab74c6a8df9a0478a349243b5efc31,
+        type: 3}
+      propertyPath: foundSuspectClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 79d0598687ea4314d8de7168ac9ba659, type: 3}
     - target: {fileID: 8013217450259801172, guid: 1bab74c6a8df9a0478a349243b5efc31,
         type: 3}
       propertyPath: m_AnchorMax.y
