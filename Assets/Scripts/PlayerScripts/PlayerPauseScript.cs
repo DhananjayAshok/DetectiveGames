@@ -14,11 +14,14 @@ public class PlayerPauseScript : MonoBehaviour
     private Vector3 prevPosition;
     private Quaternion prevRotation;
     private MenuAudioScript menuAudioScript;
+    private MenuAnimationScript menuAnimationScript;
 
     [HideInInspector]
     public bool isPaused;
     [HideInInspector]
     public bool isMiniPaused;
+    [HideInInspector]
+    public bool isInConversation;
 
     [Header("Must Assign to Mind Palace Pause Point")]
     public Transform playerPausePoint;
@@ -43,6 +46,7 @@ public class PlayerPauseScript : MonoBehaviour
         thirdPersonInput = playerObject.GetComponent<vThirdPersonInput>();
         animator = playerObject.GetComponent<Animator>();
         menuAudioScript = GetComponent<MenuAudioScript>();
+        menuAnimationScript = GetComponent<MenuAnimationScript>();
     }   
 
     void Process() {
@@ -58,27 +62,49 @@ public class PlayerPauseScript : MonoBehaviour
         }
     }
 
-    void MiniPauseProcess() {
-        isMiniPaused = true;
+    void Freeze() {
+        animator.SetFloat("InputMagnitude", 0f);
         thirdPersonController.enabled = false;
         thirdPersonInput.enabled = false;
-        pauseCanvas.gameObject.SetActive(true);
+    }
+
+    void FreezeMovementOnly() { // Unsure if this works
+        thirdPersonInput.enabled = false;
+    }
+
+    void UnFreeze() {
+        animator.SetFloat("InputMagnitude", 0f);
+        thirdPersonController.enabled = true;
+        thirdPersonInput.enabled = true;
+    }
+
+    void MiniPauseProcess() {
+        isMiniPaused = true;
         pauseCanvasBackground.SetActive(false);
+        StartCoroutine(CanvasPauseCoroutine(0));
     }
 
     void MiniUnpauseProcess() {
-        thirdPersonController.enabled = true;
-        thirdPersonInput.enabled = true;
-        pauseCanvas.gameObject.SetActive(false);
+        StartCoroutine(CanvasUnpauseCoroutine(0));
         pauseCanvasBackground.SetActive(true);
         isMiniPaused = false;
+    }
+
+    public void StartConversation() {
+        Freeze();
+        isInConversation = true;
+    }
+
+    public void LeaveConversation() {
+        UnFreeze();
+        MiniUnpauseProcess();
+        isInConversation = false;
     }
 
     void PauseProcess() {
         animator.SetTrigger("PauseHit");
         animator.SetBool("isPaused", true);
-        thirdPersonController.enabled = false;
-        thirdPersonInput.enabled = false;
+        Freeze();
         StartCoroutine(CameraPauseCoroutine());
         StartCoroutine(JumpCoroutine());
         StartCoroutine(CanvasPauseCoroutine());
@@ -89,6 +115,7 @@ public class PlayerPauseScript : MonoBehaviour
     void UnPauseProcess() {
         animator.ResetTrigger("PauseHit");
         animator.SetBool("isPaused", false);
+        UnFreeze();
         StartCoroutine(CameraUnpauseCoroutine());
         StartCoroutine(JumpBackCoroutine());
         StartCoroutine(CanvasUnpauseCoroutine());
@@ -130,18 +157,19 @@ public class PlayerPauseScript : MonoBehaviour
         playerObject.transform.rotation = prevRotation;
     }
 
-    IEnumerator CanvasPauseCoroutine()
+    IEnumerator CanvasPauseCoroutine(float waitTime=7)
     {
         mainCanvas.gameObject.SetActive(false);
-        yield return new WaitForSeconds(7);
-
+        yield return new WaitForSeconds(waitTime);
         pauseCanvas.gameObject.SetActive(true);
+        menuAnimationScript.OpenMenu();
     }
 
-    IEnumerator CanvasUnpauseCoroutine()
+    IEnumerator CanvasUnpauseCoroutine(float waitTime=2)
     {
+        menuAnimationScript.CloseMenu();
         pauseCanvas.gameObject.SetActive(false);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(waitTime);
         mainCanvas.gameObject.SetActive(true);
     }
 
@@ -149,9 +177,30 @@ public class PlayerPauseScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !isMiniPaused && playerPausePoint != null)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Process();
+            if (!isMiniPaused && !isInConversation)
+            {
+                if (playerPausePoint != null)
+                {
+                    Process();
+                }
+            }
+            else if (isMiniPaused && !isInConversation)
+            {
+                Debug.Log("Error. This state should not be possible");
+            }
+            else if (isMiniPaused && isInConversation)
+            {
+                MiniUnpauseProcess();
+            }
+            else if (isInConversation && !isMiniPaused)
+            {
+                MiniPauseProcess();
+            }
+            else {
+                Debug.Log("Error. Impossible state");
+            }
         }
     }
 }

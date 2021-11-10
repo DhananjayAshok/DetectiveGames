@@ -8,6 +8,8 @@ public class MenuAnimationScript : MonoBehaviour
     [Header("Internal Variables (Can ignore)")]
     public Animator panelAnimator;
     public Animator scrollviewAnimator;
+    [HideInInspector]
+    public bool menuOpen = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,21 @@ public class MenuAnimationScript : MonoBehaviour
     public void DeselectClueAnimation() {
         Disappear(panelAnimator);
         Emerge(scrollviewAnimator);
+    }
+
+    public void OpenMenu() {
+        menuOpen = true;
+        SetMenuOpen();
+    }
+
+    public void CloseMenu() {
+        menuOpen = false;
+        SetMenuOpen();
+    }
+
+    public void SetMenuOpen() {
+        scrollviewAnimator.SetBool("menuOpen", menuOpen);
+        panelAnimator.SetBool("menuOpen", menuOpen);
     }
 
     // Update is called once per frame

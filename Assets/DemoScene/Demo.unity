@@ -1700,10 +1700,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e915cb85ea4401746b6acee66ed91660, type: 3}
   - {fileID: 8300000, guid: 0b9f50b50c4195c438bbf8b2e0d781ef, type: 3}
   - {fileID: 8300000, guid: 24199bef1d112e747857e6af43cb439c, type: 3}
+  - {fileID: 8300000, guid: 24199bef1d112e747857e6af43cb439c, type: 3}
+  - {fileID: 8300000, guid: 24199bef1d112e747857e6af43cb439c, type: 3}
+  - {fileID: 8300000, guid: 24199bef1d112e747857e6af43cb439c, type: 3}
   questions:
   - one
   - two
   - three
+  - four
+  - four
+  - four
   - four
 --- !u!4 &802232463 stripped
 Transform:

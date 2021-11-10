@@ -16,6 +16,8 @@ public class HandleSuspectScript : MonoBehaviour
     public Button[] buttons;
     private ConversationTree currentTree;
     private GameObject currentSuspect;
+    [HideInInspector]
+    public PlayerPauseScript playerPauseScript;
     AudioGroup narratorSuccessClips;
     AudioGroup narratorFailureClips;
     AudioGroup leaveConversationClips;
@@ -26,6 +28,7 @@ public class HandleSuspectScript : MonoBehaviour
         narratorSuccessClips = audioManagementScript.narratorSuccessClips;
         narratorFailureClips = audioManagementScript.narratorFailureClips;
         leaveConversationClips = audioManagementScript.leaveConversationClips;
+        playerPauseScript = GetComponent<PlayerPauseScript>();
         //buttons = {button0, button1, button2, button3};
     }
 
@@ -62,6 +65,7 @@ public class HandleSuspectScript : MonoBehaviour
     
     public void StartConversation(GameObject suspect)
     {
+        playerPauseScript.StartConversation();
         currentSuspect = suspect;
         SuspectScript script = suspect.GetComponent<SuspectScript>();
         currentTree = script.baseTree;
@@ -123,6 +127,7 @@ public class HandleSuspectScript : MonoBehaviour
         currentTree = null;
         audioSource.clip = leaveConversationClips.Sample();
         audioSource.Play();
+        playerPauseScript.LeaveConversation();
     }
 
     public void activateButtons() {

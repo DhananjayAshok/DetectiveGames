@@ -141,6 +141,7 @@ public class InteractionScript : MonoBehaviour
         //double waitTime = foundSuspectClip.length; //+ ((double) 2.0);
         audioSource.Play();
         Debug.Log("Interact with suspect");
+        handleSuspectScript.playerPauseScript.StartConversation();
         yield return new WaitForSeconds(audioSource.clip.length + 1.0f);
         handleSuspectScript.StartConversation(currentSuspect);
     }
