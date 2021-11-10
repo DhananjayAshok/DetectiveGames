@@ -12,21 +12,29 @@ public class InteractionScript : MonoBehaviour
     public AudioClip interactWithInnocentAccusedClip;
     public AudioClip interactWithGuiltyAccusedClip;
     public AudioClip accuseClip;
+    public AudioClip narratorClip;
     public GameObject interactionButton;
     public GameObject accusationSlider;
     public HandleClueScript handleClueScript;
     public HandleSuspectScript handleSuspectScript;
+    public ClueContentScript clueContentScript;
+    public AudioSource audioSource;
+
+    public GodClueScript godClueScript;
 
     GameObject currentClue;
     GameObject currentSuspect;
-    AudioSource audioSource;
     int counter = 0;
     int accuseCount = 50;
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.clip = narratorClip;
+        audioSource.loop = false;
+        audioSource.Play();
         currentClue = null;
+        godClueScript = GameObject.FindGameObjectsWithTag("God")[0].GetComponent<GodClueScript>(); // There should be one and only one God in the scene
     }
 
     GameObject getCurrentClueFromCollider(Collider collider)
@@ -101,6 +109,10 @@ public class InteractionScript : MonoBehaviour
             {
 
                 audioSource.clip = foundClueClip;
+                ClueScript cs = currentClue.GetComponent<ClueScript>();
+                int index = godClueScript.noCluesDiscovered;
+                godClueScript.addClue(cs);
+                clueContentScript.CreateClueRecord(cs, index);
             }
 
             audioSource.Play();
@@ -189,6 +201,5 @@ public class InteractionScript : MonoBehaviour
             UpdateSlider();
         }
 
-        
     }
 }
