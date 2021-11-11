@@ -8,25 +8,31 @@ using UnityEditor.Animations;
 public class SuspectScript : MonoBehaviour
 {
 
+    [Header("Suspect AudioClips")]
     public AudioGroup accusedClips;
     public AudioGroup afterAccusedClips;
+    public AudioGroup defaultConfrontationResponse;
+    [Space(10)]
+    [Header("Suspect Data")]
+    public string suspectName;
     public bool isGuilty;
+    [Space(10)]
+    [Header("Confrontation Records")]
+    public List<Confrontation> confrontations;
+    [Space(10)]
+    [Header("Internal Variables (Can ignore)")]
+    public TextMesh nameText;
+    public ConversationTree baseTree;
+    public TreeCreationScript treeCreationScript;
+    public Animator animator;
     [HideInInspector]
     public bool hasBeenAccused = false;
     [HideInInspector]
     public bool hasBeenSpokenTo = false;
     [HideInInspector]
     public bool hasBeenConfronted = false;
-    public TextMesh nameText;
-    public string suspectName;
-    public ConversationTree baseTree;
-    public TreeCreationScript treeCreationScript;
-    public AudioGroup defaultConfrontationResponse;
-    public List<Confrontation> confrontations;
     [HideInInspector]
     public Confrontation defaultConfrontation;
-
-    public Animator animator;
 
 
     AudioSource audioSource;

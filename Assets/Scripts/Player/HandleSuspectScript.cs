@@ -5,19 +5,16 @@ using UnityEngine.UI;
 using UnityEditor.Animations;
 
 public class HandleSuspectScript : MonoBehaviour
-{
-    public GameObject conversationButtons;
+{ 
 
-
+    [Header("Internal Variables (Can ignore)")]
     public AudioSource audioSource;
-    public bool inConversation = false;
-
-    public Button[] buttons;
-
     public Text clueNameText;
     public InteractionScript interactionScript;
-    private ConversationTree currentTree;
-    private GameObject currentSuspect;
+    public Button[] buttons;
+    public GameObject conversationButtons;
+    [HideInInspector]
+    public bool inConversation = false;
 
     [HideInInspector]
     public PlayerPauseScript playerPauseScript;
@@ -34,9 +31,11 @@ public class HandleSuspectScript : MonoBehaviour
     AudioGroup confrontClips;
     AudioGroup leaveSuccessfulConfrontationClips;
     AudioGroup leaveUnsuccessfulConfrontationClips;
+    private ConversationTree currentTree;
+    private GameObject currentSuspect;
 
 
-    void Start()
+void Start()
     {
         audioManagementScript = GetComponent<AudioManagementScript>();
         menuAnimationScript = GetComponent<MenuAnimationScript>();
