@@ -62,17 +62,17 @@ public class PlayerPauseScript : MonoBehaviour
         }
     }
 
-    void Freeze() {
+    public void Freeze() {
         animator.SetFloat("InputMagnitude", 0f);
         thirdPersonController.enabled = false;
         thirdPersonInput.enabled = false;
     }
 
-    void FreezeMovementOnly() { // Unsure if this works
+    public void FreezeInputOnly() { // Unsure if this works
         thirdPersonInput.enabled = false;
     }
 
-    void UnFreeze() {
+    public void UnFreeze() {
         animator.SetFloat("InputMagnitude", 0f);
         thirdPersonController.enabled = true;
         thirdPersonInput.enabled = true;

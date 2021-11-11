@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GodClueScript : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GodClueScript : MonoBehaviour
     public int noCluesDiscovered = 0;
     [HideInInspector]
     public ClueObject[] discoveredClues;
+    [HideInInspector]
+    public int roundNumber=1;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +47,17 @@ public class GodClueScript : MonoBehaviour
         }
     }
 
+    public void ProgressScene() {
+        if (roundNumber == 1)
+        {
+            roundNumber = 2;
+            SceneManager.LoadScene(1); // should be 2 if you have a main menu
+        }
+        else if (roundNumber == 2) {
+            roundNumber = 3;
+            SceneManager.LoadScene(3);
+        }       
+    }
     // Update is called once per frame
     void Update()
     {

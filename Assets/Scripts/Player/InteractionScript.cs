@@ -16,6 +16,7 @@ public class InteractionScript : MonoBehaviour
     public HandleSuspectScript handleSuspectScript;
     public ClueContentScript clueContentScript;
     public AudioManagementScript audioManagementScript;
+    public PlayerPortalScript playerPortalScript;
     [HideInInspector]
     public AudioSource audioSource;
     [HideInInspector]
@@ -34,6 +35,7 @@ public class InteractionScript : MonoBehaviour
     GameObject currentSuspect;
     int counter = 0;
     int accuseCount = 50;
+    bool inPortal;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,24 +68,31 @@ public class InteractionScript : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider collider) {
-        if (collider.tag == "clue") {
+        if (collider.tag == "clue")
+        {
             //Debug.Log("Collision");
             currentClue = getCurrentClueFromCollider(collider);
             interactionButton.SetActive(true);
         }
-        else if(collider.tag == "suspect"){
+        else if (collider.tag == "suspect")
+        {
             currentSuspect = getCurrentSuspectFromCollider(collider);
             interactionButton.SetActive(true);
-            if (!currentSuspect.GetComponent<SuspectScript>().hasBeenAccused) { 
-                accusationSlider.SetActive(true); 
+            if (!currentSuspect.GetComponent<SuspectScript>().hasBeenAccused && godClueScript.roundNumber == 2)
+            {
+                accusationSlider.SetActive(true);
             }
+        }
+        else if (collider.tag == "Finish") {
+            interactionButton.SetActive(true);
+            inPortal = true;
+            playerPortalScript.EnterPortal();
         }
         
     }
 
 
     void OnTriggerExit(Collider collider) {
-
         if (collider.tag == "clue") {
             currentClue = null;
             interactionButton.SetActive(false);
@@ -97,25 +106,33 @@ public class InteractionScript : MonoBehaviour
                 handleSuspectScript.LeaveConversation();
             }
         }
+        else if (collider.tag == "Finish")
+        {
+            interactionButton.SetActive(false);
+            inPortal = false;
+            playerPortalScript.ExitPortal();
+        }
     }
 
     void Interact() {
-        if (currentClue == null && currentSuspect == null)
+        if (currentClue == null && currentSuspect == null && !inPortal)
         {
             audioSource.clip = bugClips.Sample();
             audioSource.Play();
             //Debug.Log("None");
         }
-        else if ((currentClue != null && currentSuspect != null) || (currentSuspect != null)) {
+        else if ((currentClue != null && currentSuspect != null) || (currentSuspect != null))
+        {
             if (!currentSuspect.GetComponent<SuspectScript>().hasBeenAccused)
             {
                 StartCoroutine(suspectInteract());
             }
-            else {
+            else
+            {
                 StartCoroutine(accusedSuspectInteract());
             }
         }
-        else
+        else if (currentClue != null)
         {
             if (currentClue.GetComponent<ClueScript>().discovered)
             {
@@ -133,6 +150,13 @@ public class InteractionScript : MonoBehaviour
 
             audioSource.Play();
             handleClueScript.displayClue(currentClue);
+        }
+        else if (inPortal)
+        {
+            playerPortalScript.ActivatePortal();
+        }
+        else {
+            Debug.Log("Error");
         }
     }
 

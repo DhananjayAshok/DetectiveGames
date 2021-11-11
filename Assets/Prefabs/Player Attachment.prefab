@@ -5106,6 +5106,7 @@ GameObject:
   - component: {fileID: 5058678971218199323}
   - component: {fileID: 6192279471943868698}
   - component: {fileID: 2062914321977937149}
+  - component: {fileID: 5015229869135864349}
   m_Layer: 0
   m_Name: Player Attachment
   m_TagString: Player Attachment
@@ -5160,16 +5161,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b520a1e8dc5dc224ca4feccab8d31083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conversationButtons: {fileID: 1032997359}
   audioSource: {fileID: 891640336}
-  inConversation: 0
+  clueNameText: {fileID: 6967022449700198347}
+  interactionScript: {fileID: 7956122393731989888}
   buttons:
   - {fileID: 5761989004543195244}
   - {fileID: 6352809179469310898}
   - {fileID: 1125647903371456697}
   - {fileID: 4369215691204093038}
-  clueNameText: {fileID: 6967022449700198347}
-  interactionScript: {fileID: 7956122393731989888}
+  conversationButtons: {fileID: 1032997359}
+  inConversation: 0
   playerPauseScript: {fileID: 0}
 --- !u!114 &1967601982
 MonoBehaviour:
@@ -5331,6 +5332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backButton: {fileID: 8124090899646875946}
   autopsyButton: {fileID: 4174814027113448461}
+  confrontationButton: {fileID: 262343481176873135}
   autopsyButtonText: {fileID: 930769822643579947}
   confrontButton: {fileID: 262343481176873135}
   clueName: {fileID: 6967022449700198347}
@@ -5441,6 +5443,30 @@ MonoBehaviour:
   leaveUnsuccessfulConfrontationClips:
     clips:
     - {fileID: 8300000, guid: e915cb85ea4401746b6acee66ed91660, type: 3}
+  portalEntryClips:
+    clips:
+    - {fileID: 8300000, guid: 79d0598687ea4314d8de7168ac9ba659, type: 3}
+  portalExitClips:
+    clips:
+    - {fileID: 8300000, guid: cef2d9c15ecab9348ac6f19810dfe175, type: 3}
+  portalActivateClips:
+    clips:
+    - {fileID: 8300000, guid: 37368755c39cd734b88b2ae2282d39e2, type: 3}
+--- !u!114 &5015229869135864349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7956122392596906606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2496649ef163e924c875156eebe7dace, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  stayAnimationLength: 2.36
+  jumpAnimationLength: 1
 --- !u!1 &7956122393731989893
 GameObject:
   m_ObjectHideFlags: 0
@@ -5561,6 +5587,7 @@ MonoBehaviour:
   handleSuspectScript: {fileID: 5784127561319968234}
   clueContentScript: {fileID: 8510572361151395480}
   audioManagementScript: {fileID: 2062914321977937149}
+  playerPortalScript: {fileID: 5015229869135864349}
   audioSource: {fileID: 0}
   godClueScript: {fileID: 0}
 --- !u!82 &891640336

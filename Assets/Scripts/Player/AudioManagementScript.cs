@@ -51,6 +51,12 @@ public class AudioManagementScript : MonoBehaviour
     public AudioGroup leaveSuccessfulConfrontationClips;
     public AudioGroup leaveUnsuccessfulConfrontationClips;
 
+    [Space(10)]
+    [Header("Portal Clips")]
+    public AudioGroup portalEntryClips;
+    public AudioGroup portalExitClips;
+    public AudioGroup portalActivateClips;
+
 
     // Start is called before the first frame update
     void Start()

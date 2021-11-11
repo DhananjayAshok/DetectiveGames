@@ -9,6 +9,7 @@ public class MenuButtonScript : MonoBehaviour
     [Header("Internal Variables (Can ignore)")]
     public GameObject backButton;
     public GameObject autopsyButton;
+    public GameObject confrontationButton;
     public Text autopsyButtonText;
     public GameObject confrontButton;
     public Text clueName;
@@ -29,6 +30,13 @@ public class MenuButtonScript : MonoBehaviour
     void Start()
     {
         godClueScript = GameObject.FindGameObjectsWithTag("God")[0].GetComponent<GodClueScript>(); // There should be one and only one God in the scene
+        if (godClueScript.roundNumber == 1)
+        {
+            confrontationButton.SetActive(false);
+        }
+        else if (godClueScript.roundNumber == 2) {
+            confrontationButton.SetActive(true);
+        }
         UpdateAutopsyButtonText();
         autopsyWaitTime = menuAudioScript.getAutopsyWaitTime();
     }
