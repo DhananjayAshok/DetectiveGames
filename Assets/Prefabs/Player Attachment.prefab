@@ -224,7 +224,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2047841365
 RectTransform:
   m_ObjectHideFlags: 0
@@ -667,7 +667,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6806358437247566189}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5784127561319968234}
+        m_TargetAssemblyTypeName: HandleSuspectScript, Assembly-CSharp
+        m_MethodName: RequestConfrontation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &323727898494264072
 GameObject:
   m_ObjectHideFlags: 0
@@ -4113,7 +4125,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5784127561319968234}
         m_TargetAssemblyTypeName: HandleSuspectScript, Assembly-CSharp
-        m_MethodName: LeaveConversation
+        m_MethodName: LeaveConversationArgless
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5151,12 +5163,13 @@ MonoBehaviour:
   conversationButtons: {fileID: 1032997359}
   audioSource: {fileID: 891640336}
   inConversation: 0
-  audioManagementScript: {fileID: 2062914321977937149}
   buttons:
   - {fileID: 5761989004543195244}
   - {fileID: 6352809179469310898}
   - {fileID: 1125647903371456697}
   - {fileID: 4369215691204093038}
+  clueNameText: {fileID: 6967022449700198347}
+  interactionScript: {fileID: 7956122393731989888}
   playerPauseScript: {fileID: 0}
 --- !u!114 &1967601982
 MonoBehaviour:
@@ -5418,7 +5431,16 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 2b6a8ae7e1fceca498ce90b1ba0f8f48, type: 3}
   confrontClips:
     clips:
-    - {fileID: 8300000, guid: a5cc6499f40ad5943bfec63326d36517, type: 3}
+    - {fileID: 8300000, guid: 37368755c39cd734b88b2ae2282d39e2, type: 3}
+  reconfrontClips:
+    clips:
+    - {fileID: 8300000, guid: cef2d9c15ecab9348ac6f19810dfe175, type: 3}
+  leaveSuccessfulConfrontationClips:
+    clips:
+    - {fileID: 8300000, guid: 0b9f50b50c4195c438bbf8b2e0d781ef, type: 3}
+  leaveUnsuccessfulConfrontationClips:
+    clips:
+    - {fileID: 8300000, guid: e915cb85ea4401746b6acee66ed91660, type: 3}
 --- !u!1 &7956122393731989893
 GameObject:
   m_ObjectHideFlags: 0

@@ -171,13 +171,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d292282ec34fbb646858a09bb693a8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accusedClip: {fileID: 8300000, guid: 24199bef1d112e747857e6af43cb439c, type: 3}
-  afterAccusedClip: {fileID: 8300000, guid: dd2e368b6097c824fab1e8068c2a3db0, type: 3}
+  accusedClips:
+    clips: []
+  afterAccusedClips:
+    clips: []
   isGuilty: 0
   hasBeenAccused: 0
+  hasBeenSpokenTo: 0
+  hasBeenConfronted: 0
   nameText: {fileID: 446578743721991643}
-  suspectName: 
+  suspectName: Suspect Name Goes Here
   treeCreationScript: {fileID: 0}
+  defaultConfrontationResponse:
+    clips:
+    - {fileID: 8300000, guid: 2b6a8ae7e1fceca498ce90b1ba0f8f48, type: 3}
+  confrontations: []
+  defaultConfrontation:
+    clueName: 
+    responses:
+      clips: []
+    isSuccessfulConfrontation: 0
+  animator: {fileID: 0}
 --- !u!82 &8846334905011092120
 AudioSource:
   m_ObjectHideFlags: 0
