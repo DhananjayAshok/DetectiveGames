@@ -39,19 +39,24 @@ Make sure that before you move on you add a God prefab object to Scene 1 (only, 
 
 - Total number of clues in the entire game
 - Maximum number of lab reports available to the detective.
-### Step 2: Making a player character
+
+### Step 2: Readying the scene
+- Create a "Mind Palace" this is a structure that the player will teleport to when they pause the game and want to review their clues. Make sure you create a GameObject within this Mind Palace at the exact location you want the player to spawn. Tag this object "PlayerPausePoint". (You can just drag the Mind Palace prefab if you want)
+- Drag the Exit Portal prefab onto the scene and create some physical structure around the green collider under the structure child. You can reshape the green collider to change the portal shape and size.
+
+
+### Step 3: Making a player character
 
 - Make sure you have an fbx model of a humanoid before you start this step - let us call it model.fbx
 - Go to Invector-> Basic Locomotion -> Basic Controller and select model.fbx
 - The controller should have been added to the scene, take the PlayerAttachment prefab and make it a child of the controller. 
-Go to the PlayerPauseScript component of the PlayerAttachment object and set it to any location that you want the player to go to when they pause. 
-Usually you create a "mind palace" floating up in the sky and set the location there. 
 
-### Step 3: Making Clues
+
+### Step 4: Making Clues
 - Drag the clue prefab onto the scene. 
 - Go to the ClueScript component and set the variables as required. The Clue Autopsy text field is the message returned if the user chooses to send this clue to the lab (leave it blank for a default message). The isAutopsySuccess boolean is true iff the clue gives back valuable information after being sent to the lab. 
 - Give this clue prefab a child object, it should have a physical mesh renderer and collider,but no rigidbody component. Ensure that the child is tagged as clue. 
-### Step 4: Making Suspects
+### Step 5: Making Suspects
 
 This has many steps so the basic setup is
 #### Part A: Basic Setup
