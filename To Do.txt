@@ -1,2 +1,0 @@
-variable all the animation and audio sync timing values instead of using constant values. 
-Replace all Animators with RunTimeAnimatorControllers
