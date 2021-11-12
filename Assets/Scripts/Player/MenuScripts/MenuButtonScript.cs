@@ -20,7 +20,7 @@ public class MenuButtonScript : MonoBehaviour
     public MenuAnimationScript menuAnimationScript;
     public MenuAudioScript menuAudioScript;
     [HideInInspector]
-    public GodClueScript godClueScript;
+    public GodScript godScript;
     [HideInInspector]
     public ClueObject currentClueObject;
     [HideInInspector]
@@ -29,12 +29,12 @@ public class MenuButtonScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        godClueScript = GameObject.FindGameObjectsWithTag("God")[0].GetComponent<GodClueScript>(); // There should be one and only one God in the scene
-        if (godClueScript.roundNumber == 1)
+        godScript = GameObject.FindGameObjectsWithTag("God")[0].GetComponent<GodScript>(); // There should be one and only one God in the scene
+        if (godScript.roundNumber == 1)
         {
             confrontationButton.SetActive(false);
         }
-        else if (godClueScript.roundNumber == 2) {
+        else if (godScript.roundNumber == 2) {
             confrontationButton.SetActive(true);
         }
         UpdateAutopsyButtonText();
@@ -71,7 +71,7 @@ public class MenuButtonScript : MonoBehaviour
         if (currentClueObject.isAutopsied) {
             Debug.Log("Requesting Lab when it shouldn't be reachable");
         } else {
-            int status = godClueScript.PerformAutopsy(currentClueObject.index);
+            int status = godScript.PerformAutopsy(currentClueObject.index);
             menuAudioScript.AutopsyRequest();
 
             if (status != 0)
@@ -116,7 +116,7 @@ public class MenuButtonScript : MonoBehaviour
     }
 
     void UpdateAutopsyButtonText() {
-        autopsyButtonText.text = "Send Evidence to Lab: " + (godClueScript.noAvailableAutopsies - godClueScript.noAutopsiesPerformed) + " requests left.";
+        autopsyButtonText.text = "Send Evidence to Lab: " + (godScript.noAvailableAutopsies - godScript.noAutopsiesPerformed) + " requests left.";
     }
 
     void ShowAutopsy() {

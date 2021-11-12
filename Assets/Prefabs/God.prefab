@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1147917515003210563}
-  - component: {fileID: 1147917515003210560}
+  - component: {fileID: 6217438726799595176}
   m_Layer: 0
   m_Name: God
   m_TagString: God
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1147917515003210560
+--- !u!114 &6217438726799595176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,9 +40,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1147917515003210561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be2197509a42dc84289af4b128cdda11, type: 3}
+  m_Script: {fileID: 11500000, guid: e64e31e7d839d2340ae503f4ece20fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noClues: 1000
+  noClues: 10
   noAvailableAutopsies: 5
+  noAutopsiesPerformed: 0
   noCluesDiscovered: 0
+  roundNumber: 1

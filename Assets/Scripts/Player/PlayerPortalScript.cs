@@ -9,7 +9,7 @@ public class PlayerPortalScript : MonoBehaviour
     public float speed = 5;
     public float stayAnimationLength = 2.36f;
     public float jumpAnimationLength = 1f;
-    GodClueScript godClueScript;
+    GodScript godScript;
     PlayerPauseScript playerPauseScript;
     AudioManagementScript audioManagementScript;
     AudioSource audioSource;
@@ -32,7 +32,7 @@ public class PlayerPortalScript : MonoBehaviour
         portalEntryClips = audioManagementScript.portalEntryClips;
         portalExitClips = audioManagementScript.portalExitClips;
         portalActivateClips = audioManagementScript.portalActivateClips;
-        godClueScript = GameObject.FindGameObjectsWithTag("God")[0].GetComponent<GodClueScript>(); // There should be one and only one God in the scene
+        godScript = GameObject.FindGameObjectsWithTag("God")[0].GetComponent<GodScript>(); // There should be one and only one God in the scene
         animator = this.transform.parent.gameObject.GetComponent<Animator>();
         player = GameObject.FindGameObjectsWithTag("Player")[0];
         audioSource = GameObject.FindGameObjectsWithTag("InteractionSphere")[0].GetComponent<AudioSource>();
@@ -62,7 +62,7 @@ public class PlayerPortalScript : MonoBehaviour
         yield return new WaitForSeconds(stayAnimationLength);
         movingForward = true;
         yield return new WaitForSeconds(jumpAnimationLength);
-        godClueScript.ProgressScene();
+        godScript.ProgressScene();
     }
 
 

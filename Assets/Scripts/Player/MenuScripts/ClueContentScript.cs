@@ -9,18 +9,19 @@ public class ClueContentScript : MonoBehaviour
     public GameObject clueContent;
     [HideInInspector]
     public int noCluesDiscovered = 0;
-    private GodClueScript godClueScript;
+    private GodScript godScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        godClueScript = GameObject.FindGameObjectsWithTag("God")[0].GetComponent<GodClueScript>(); // There should be one and only one God in the scene
+        godScript = GameObject.FindGameObjectsWithTag("God")[0].GetComponent<GodScript>(); // There should be one and only one God in the scene
+        RefreshClues();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (godClueScript.noCluesDiscovered != noCluesDiscovered) {
+        if (godScript.noCluesDiscovered != noCluesDiscovered) {
             
         }
     }
@@ -42,9 +43,9 @@ public class ClueContentScript : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
         noCluesDiscovered = 0;
-        int noClues = godClueScript.noCluesDiscovered;
+        int noClues = godScript.noCluesDiscovered;
         for (int iii = 0; iii < noClues; iii++) {
-            ClueObject clueObject = godClueScript.discoveredClues[iii];
+            ClueObject clueObject = godScript.discoveredClues[iii];
             CreateClueRecord(clueObject);
         }
     }

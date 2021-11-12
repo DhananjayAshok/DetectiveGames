@@ -32,6 +32,7 @@ public class HandleSuspectScript : MonoBehaviour
     AudioGroup leaveUnsuccessfulConfrontationClips;
     private ConversationTree currentTree;
     private GameObject currentSuspect;
+    GodScript godScript;
 
 
 void Start()
@@ -47,9 +48,8 @@ void Start()
         leaveSuccessfulConfrontationClips = audioManagementScript.leaveSuccessfulConfrontationClips;
         leaveUnsuccessfulConfrontationClips = audioManagementScript.leaveUnsuccessfulConfrontationClips;
         playerAnimator = transform.parent.gameObject.GetComponent<Animator>();
-
         playerPauseScript = GetComponent<PlayerPauseScript>();
-        //buttons = {button0, button1, button2, button3};
+        godScript = GameObject.FindGameObjectsWithTag("God")[0].GetComponent<GodScript>(); // There should be one and only one God in the scene
     }
 
     public void Accusation(GameObject suspectObject)
@@ -106,7 +106,6 @@ void Start()
         }
         else
         {
-            Debug.Log("Activating Buttons and updating tree");
             updateButtons(tree);
             activateButtons();
         }
@@ -171,7 +170,6 @@ void Start()
     }
 
     public void deactivateButtons() {
-        Debug.Log("Deactivated");
         conversationButtons.SetActive(false);
     }
     
@@ -199,7 +197,7 @@ void Start()
             return;
         }
         SuspectScript suspectScript = currentSuspect.GetComponent<SuspectScript>();
-        if (suspectScript.hasBeenConfronted)
+        if (suspectScript.noConfrontations>godScript.noAvailableConfrontations)
         {
             audioSource.clip = reconfrontClips.Sample();
             audioSource.Play();
@@ -226,7 +224,7 @@ void Start()
         StartCoroutine(ConfrontAnimation(isSuccessfulConfrontation, waitTimePlayer, waitTimeSuspect));
         StartCoroutine(ConfrontAudio(suspectAudioSource, waitTimePlayer, waitTimeSuspect));
         StartCoroutine(ConfrontCanvas(isSuccessfulConfrontation, waitTimePlayer, waitTimeSuspect));
-        suspectScript.hasBeenConfronted = true;
+        suspectScript.noConfrontations++;
 
     }
 

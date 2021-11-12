@@ -29,7 +29,7 @@ public class SuspectScript : MonoBehaviour
     [HideInInspector]
     public bool hasBeenSpokenTo = false;
     [HideInInspector]
-    public bool hasBeenConfronted = false;
+    public int noConfrontations = 0;
     [HideInInspector]
     public Confrontation defaultConfrontation;
 

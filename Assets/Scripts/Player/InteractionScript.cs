@@ -20,7 +20,7 @@ public class InteractionScript : MonoBehaviour
     [HideInInspector]
     public AudioSource audioSource;
     [HideInInspector]
-    public GodClueScript godClueScript;
+    public GodScript godScript;
 
     private AudioGroup bugClips;
     private AudioGroup foundClueClips;
@@ -52,7 +52,7 @@ public class InteractionScript : MonoBehaviour
         audioSource.loop = false;
         audioSource.Play();
         currentClue = null;
-        godClueScript = GameObject.FindGameObjectsWithTag("God")[0].GetComponent<GodClueScript>(); // There should be one and only one God in the scene
+        godScript = GameObject.FindGameObjectsWithTag("God")[0].GetComponent<GodScript>(); // There should be one and only one God in the scene
     }
 
     GameObject getCurrentClueFromCollider(Collider collider)
@@ -78,7 +78,7 @@ public class InteractionScript : MonoBehaviour
         {
             currentSuspect = getCurrentSuspectFromCollider(collider);
             interactionButton.SetActive(true);
-            if (!currentSuspect.GetComponent<SuspectScript>().hasBeenAccused && godClueScript.roundNumber == 2)
+            if (!currentSuspect.GetComponent<SuspectScript>().hasBeenAccused && godScript.roundNumber == 2)
             {
                 accusationSlider.SetActive(true);
             }
@@ -123,14 +123,21 @@ public class InteractionScript : MonoBehaviour
         }
         else if ((currentClue != null && currentSuspect != null) || (currentSuspect != null))
         {
-            if (!currentSuspect.GetComponent<SuspectScript>().hasBeenAccused)
+            SuspectScript ss = currentSuspect.GetComponent<SuspectScript>();
+            if (!ss.hasBeenSpokenTo)
             {
+                godScript.addSuspect(ss);
+            }
+            if (!ss.hasBeenAccused)
+            {
+
                 StartCoroutine(suspectInteract());
             }
             else
             {
                 StartCoroutine(accusedSuspectInteract());
             }
+            ss.hasBeenSpokenTo = true;
         }
         else if (currentClue != null)
         {
@@ -143,8 +150,8 @@ public class InteractionScript : MonoBehaviour
 
                 audioSource.clip = foundClueClips.Sample();
                 ClueScript cs = currentClue.GetComponent<ClueScript>();
-                int index = godClueScript.noCluesDiscovered;
-                godClueScript.addClue(cs);
+                int index = godScript.noCluesDiscovered;
+                godScript.addClue(cs);
                 clueContentScript.CreateClueRecord(cs, index);
             }
 
@@ -164,7 +171,6 @@ public class InteractionScript : MonoBehaviour
         audioSource.clip = foundSuspectClips.Sample();
         //double waitTime = foundSuspectClip.length; //+ ((double) 2.0);
         audioSource.Play();
-        Debug.Log("Interact with suspect");
         handleSuspectScript.playerPauseScript.StartConversation();
         yield return new WaitForSeconds(audioSource.clip.length + 1.0f);
         handleSuspectScript.StartConversation(currentSuspect);
@@ -180,7 +186,6 @@ public class InteractionScript : MonoBehaviour
         }
         //double waitTime = foundSuspectClip.length; //+ ((double) 2.0);
         audioSource.Play();
-        Debug.Log("Interact with accused suspect");
         yield return new WaitForSeconds(audioSource.clip.length + 1.0f);
         currentSuspect.GetComponent<SuspectScript>().isSpokenToAfterAccuse();
     }
@@ -189,7 +194,6 @@ public class InteractionScript : MonoBehaviour
         audioSource.clip = accuseClips.Sample();
         //double waitTime = foundSuspectClip.length; //+ ((double) 2.0);
         audioSource.Play();
-        Debug.Log("AccuseClip");
         yield return new WaitForSeconds(audioSource.clip.length + 1.0f);
         float waitTime = currentSuspect.GetComponent<SuspectScript>().isAccused();
         yield return new WaitForSeconds(waitTime+0.2f);
