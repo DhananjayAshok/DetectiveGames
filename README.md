@@ -19,6 +19,16 @@ It is possible to accuse the wrong person in Scene 2 and go through the courtroo
 
 The rest of this document details how to start the most basic version of this, I then cover how to make a more advanced customized game using the tool. 
 
+## Prerequisistes and Installation
+
+- Git
+- Git LFS
+- Unity
+- A system that can run this
+
+You may have to install the Invector Basic Locomotion package from the Asset store. 
+
+
 ## Making a Detective Game in Unity - Basic Tutorial
 
   
