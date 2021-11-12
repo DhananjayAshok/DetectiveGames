@@ -9,6 +9,7 @@ TagManager:
   - suspect
   - Player Attachment
   - God
+  - PlayerPausePoint
   layers:
   - Default
   - TransparentFX

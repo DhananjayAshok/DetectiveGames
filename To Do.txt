@@ -1,6 +1,2 @@
--> Suspect Script Verify that it works
-
--> Do suspect with confront button
-
-
--> 
+variable all the animation and audio sync timing values instead of using constant values. 
+Replace all Animators with RunTimeAnimatorControllers

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor.Animations;
 using Invector.vCharacterController;
 
 public class PlayerPauseScript : MonoBehaviour
@@ -23,8 +22,7 @@ public class PlayerPauseScript : MonoBehaviour
     [HideInInspector]
     public bool isInConversation;
 
-    [Header("Must Assign to Mind Palace Pause Point")]
-    public Transform playerPausePoint;
+    Transform playerPausePoint;
 
     [Space(10)]
     [Header("Internal Variables (Can ignore)")]
@@ -47,6 +45,7 @@ public class PlayerPauseScript : MonoBehaviour
         animator = playerObject.GetComponent<Animator>();
         menuAudioScript = GetComponent<MenuAudioScript>();
         menuAnimationScript = GetComponent<MenuAnimationScript>();
+        playerPausePoint = GameObject.FindGameObjectsWithTag("PlayerPausePoint")[0].transform;
     }   
 
     void Process() {
