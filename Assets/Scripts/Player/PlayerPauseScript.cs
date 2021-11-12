@@ -25,6 +25,14 @@ public class PlayerPauseScript : MonoBehaviour
     Transform playerPausePoint;
 
     [Space(10)]
+    [Header("Hyperparameters")]
+    float cameraPauseWaitTime = 5f;
+    float canvasPauseWaitTime = 7f;
+    float jumpPauseWaitTime = 2f;
+    float jumpBackPauseWaitTime = 3f;
+    float canvasUnpauseWaitTime = 2f;
+
+    [Space(10)]
     [Header("Internal Variables (Can ignore)")]
     public Camera pauseCam;
     public Canvas mainCanvas;
@@ -106,7 +114,7 @@ public class PlayerPauseScript : MonoBehaviour
         Freeze();
         StartCoroutine(CameraPauseCoroutine());
         StartCoroutine(JumpCoroutine());
-        StartCoroutine(CanvasPauseCoroutine());
+        StartCoroutine(CanvasPauseCoroutine(canvasPauseWaitTime));
         menuAudioScript.MainToPause();
 
     }
@@ -117,7 +125,7 @@ public class PlayerPauseScript : MonoBehaviour
         UnFreeze();
         StartCoroutine(CameraUnpauseCoroutine());
         StartCoroutine(JumpBackCoroutine());
-        StartCoroutine(CanvasUnpauseCoroutine());
+        StartCoroutine(CanvasUnpauseCoroutine(canvasUnpauseWaitTime));
         menuAudioScript.PauseToMain();
     }
 
@@ -125,7 +133,7 @@ public class PlayerPauseScript : MonoBehaviour
     {
 
         //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(cameraPauseWaitTime);
 
         pauseCam.gameObject.SetActive(true);
     }
@@ -142,7 +150,7 @@ public class PlayerPauseScript : MonoBehaviour
     IEnumerator JumpCoroutine()
     {
         SaveTransform();
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(jumpPauseWaitTime);
         playerObject.transform.position = playerPausePoint.position;
         playerObject.transform.rotation = playerPausePoint.rotation;
 
@@ -151,7 +159,7 @@ public class PlayerPauseScript : MonoBehaviour
     IEnumerator JumpBackCoroutine()
     {
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(jumpBackPauseWaitTime);
         playerObject.transform.position = prevPosition;
         playerObject.transform.rotation = prevRotation;
     }
