@@ -85,9 +85,7 @@ This has many steps so the basic setup is
 
 
 #### Part D: Add Animations
-- Create an animation controller
-- Go to Assets->Animations->Suspects->Default Suspect Controller and copy all the states, paste these states into the controller
-- Make sure you replicate the same connectivity structure found in the default controller, so set the default transition from entry to Idle and give both Confrontations a transition to Idle. 
+- Go to Assets->Animations->Suspects->Default Suspect Controller and Ctrl+D to duplicate it
 - If you want to customize animation clips for any state you can do so in Motion animation of each state. 
 - Then go to the object with the fbx model (the child of Body) and add an Animator (it may already have one which is okay), set the controller to this one you just made
 - Go to the suspect object and in the suspect script set the animator to the one of the object with the fbx model
