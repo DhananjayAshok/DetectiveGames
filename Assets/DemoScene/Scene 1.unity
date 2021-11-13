@@ -3747,6 +3747,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8846334905011092103, guid: 0066b20e159e2d0438d5e5c98ec901c4,
         type: 3}
+      propertyPath: isReasonableSuspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8846334905011092103, guid: 0066b20e159e2d0438d5e5c98ec901c4,
+        type: 3}
       propertyPath: confrontations.Array.size
       value: 0
       objectReference: {fileID: 0}

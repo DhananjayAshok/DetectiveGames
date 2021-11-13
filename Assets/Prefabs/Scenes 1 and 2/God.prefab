@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1147917515003210563}
   - component: {fileID: 6217438726799595176}
+  - component: {fileID: 4929000277431090065}
   m_Layer: 0
   m_Name: God
   m_TagString: God
@@ -44,7 +45,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noClues: 10
+  noSuspects: 50
   noAvailableAutopsies: 5
+  noAvailableConfrontations: 5
   noAutopsiesPerformed: 0
   noCluesDiscovered: 0
+  noSuspectsDiscovered: 0
+  discoveredSuspects: []
   roundNumber: 1
+  accusedSuspect: 
+  accusedSuspectReasonable: 0
+--- !u!114 &4929000277431090065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147917515003210561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e309ad45d6e512144b1bd5ea3f59f50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -3247,6 +3247,75 @@ Transform:
   m_Father: {fileID: 2072130468}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0.0001, z: -0.0016}
+--- !u!1001 &1689928122
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5144402287077920732, guid: 2f90de1339d8a2a47ba43496faca0908,
+        type: 3}
+      propertyPath: m_Name
+      value: Exit Level Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144402287077920733, guid: 2f90de1339d8a2a47ba43496faca0908,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144402287077920733, guid: 2f90de1339d8a2a47ba43496faca0908,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.739
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144402287077920733, guid: 2f90de1339d8a2a47ba43496faca0908,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144402287077920733, guid: 2f90de1339d8a2a47ba43496faca0908,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144402287077920733, guid: 2f90de1339d8a2a47ba43496faca0908,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144402287077920733, guid: 2f90de1339d8a2a47ba43496faca0908,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144402287077920733, guid: 2f90de1339d8a2a47ba43496faca0908,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144402287077920733, guid: 2f90de1339d8a2a47ba43496faca0908,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144402287077920733, guid: 2f90de1339d8a2a47ba43496faca0908,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144402287077920733, guid: 2f90de1339d8a2a47ba43496faca0908,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144402287077920733, guid: 2f90de1339d8a2a47ba43496faca0908,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2f90de1339d8a2a47ba43496faca0908, type: 3}
 --- !u!1 &1703067464
 GameObject:
   m_ObjectHideFlags: 0
@@ -3631,9 +3700,34 @@ PrefabInstance:
       objectReference: {fileID: 1335613089}
     - target: {fileID: 8846334905011092103, guid: 0066b20e159e2d0438d5e5c98ec901c4,
         type: 3}
+      propertyPath: isReasonableSuspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8846334905011092103, guid: 0066b20e159e2d0438d5e5c98ec901c4,
+        type: 3}
       propertyPath: confrontations.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8846334905011092103, guid: 0066b20e159e2d0438d5e5c98ec901c4,
+        type: 3}
+      propertyPath: accusedClips.clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8846334905011092103, guid: 0066b20e159e2d0438d5e5c98ec901c4,
+        type: 3}
+      propertyPath: accusedClips.clips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: e915cb85ea4401746b6acee66ed91660, type: 3}
+    - target: {fileID: 8846334905011092103, guid: 0066b20e159e2d0438d5e5c98ec901c4,
+        type: 3}
+      propertyPath: afterAccusedClips.clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8846334905011092103, guid: 0066b20e159e2d0438d5e5c98ec901c4,
+        type: 3}
+      propertyPath: afterAccusedClips.clips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 22debdaaff9661e45a85e352c47cde20, type: 3}
     - target: {fileID: 8846334905011092103, guid: 0066b20e159e2d0438d5e5c98ec901c4,
         type: 3}
       propertyPath: defaultConfrontationResponse.clips.Array.size

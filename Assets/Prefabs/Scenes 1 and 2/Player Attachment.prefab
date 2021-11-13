@@ -5187,7 +5187,6 @@ MonoBehaviour:
   isPaused: 0
   isMiniPaused: 0
   isInConversation: 0
-  playerPausePoint: {fileID: 0}
   pauseCam: {fileID: 8380350563742290325}
   mainCanvas: {fileID: 919869096}
   pauseCanvas: {fileID: 3583796935633063688}
@@ -5342,7 +5341,7 @@ MonoBehaviour:
   clueContentScript: {fileID: 8510572361151395480}
   menuAnimationScript: {fileID: 6192279471943868698}
   menuAudioScript: {fileID: 1583634572151004711}
-  godClueScript: {fileID: 0}
+  godScript: {fileID: 0}
   autopsyWaitTime: 0
 --- !u!114 &6192279471943868698
 MonoBehaviour:
@@ -5384,11 +5383,14 @@ MonoBehaviour:
     clips:
     - {fileID: 8300000, guid: f2094263cd731c34c82191695de4f313, type: 3}
   interactWithInnocentAccusedClips:
-    clips: []
-  interactWithGuiltyAccusedClips:
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 2b6a8ae7e1fceca498ce90b1ba0f8f48, type: 3}
+  interactWitReasonablyAccusedClips:
+    clips:
+    - {fileID: 8300000, guid: 72166633b9a33df49b1c7dd46a212eb4, type: 3}
   accuseClips:
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 79d0598687ea4314d8de7168ac9ba659, type: 3}
   leaveConversationClips:
     clips:
     - {fileID: 8300000, guid: 24199bef1d112e747857e6af43cb439c, type: 3}
@@ -5452,6 +5454,12 @@ MonoBehaviour:
   portalActivateClips:
     clips:
     - {fileID: 8300000, guid: 37368755c39cd734b88b2ae2282d39e2, type: 3}
+  round2SuccessPortalActivateClips:
+    clips:
+    - {fileID: 8300000, guid: 0b9f50b50c4195c438bbf8b2e0d781ef, type: 3}
+  round2FailurePortalActivateClips:
+    clips:
+    - {fileID: 8300000, guid: 2b6a8ae7e1fceca498ce90b1ba0f8f48, type: 3}
 --- !u!114 &5015229869135864349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5589,7 +5597,8 @@ MonoBehaviour:
   audioManagementScript: {fileID: 2062914321977937149}
   playerPortalScript: {fileID: 5015229869135864349}
   audioSource: {fileID: 0}
-  godClueScript: {fileID: 0}
+  godScript: {fileID: 0}
+  hasAccused: 0
 --- !u!82 &891640336
 AudioSource:
   m_ObjectHideFlags: 0

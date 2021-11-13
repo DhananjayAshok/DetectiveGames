@@ -14,6 +14,8 @@ public class HandleSuspectScript : MonoBehaviour
     public GameObject conversationButtons;
     [HideInInspector]
     public bool inConversation = false;
+    [HideInInspector]
+    public bool isAccusing = false;
 
     [HideInInspector]
     public PlayerPauseScript playerPauseScript;
@@ -25,6 +27,7 @@ public class HandleSuspectScript : MonoBehaviour
     AudioGroup narratorSuccessClips;
     AudioGroup narratorFailureClips;
     AudioGroup leaveConversationClips;
+    AudioGroup accuseClips;
     AudioGroup bugClips;
     AudioGroup reconfrontClips;
     AudioGroup confrontClips;
@@ -45,6 +48,7 @@ void Start()
         reconfrontClips = audioManagementScript.reconfrontClips;
         confrontClips = audioManagementScript.confrontClips;
         bugClips = audioManagementScript.bugClips;
+        accuseClips = audioManagementScript.accuseClips;
         leaveSuccessfulConfrontationClips = audioManagementScript.leaveSuccessfulConfrontationClips;
         leaveUnsuccessfulConfrontationClips = audioManagementScript.leaveUnsuccessfulConfrontationClips;
         playerAnimator = transform.parent.gameObject.GetComponent<Animator>();
@@ -52,11 +56,15 @@ void Start()
         godScript = GameObject.FindGameObjectsWithTag("God")[0].GetComponent<GodScript>(); // There should be one and only one God in the scene
     }
 
-    public void Accusation(GameObject suspectObject)
+    public void RegisterAccusation(SuspectScript suspectScript)
     {
-        //Debug.Log("Gets here");
-        SuspectScript suspectScript = suspectObject.GetComponent<SuspectScript>();
-        if (suspectScript.isGuilty)
+        godScript.accusedSuspect = suspectScript.suspectName;
+        godScript.accusedSuspectReasonable = suspectScript.isReasonableSuspect;
+        suspectScript.hasBeenAccused = true;
+    }
+
+    public void EndAccusation(SuspectScript suspectScript) {
+        if (suspectScript.isReasonableSuspect)
         {
             Success();
         }
@@ -64,22 +72,18 @@ void Start()
         {
             Failure();
         }
-        suspectScript.hasBeenAccused = true; // Should already be set but just in case
-
     }
 
     void Success()
     {
         audioSource.clip = narratorSuccessClips.Sample();
         audioSource.Play();
-        Debug.Log("SuccessClip");
     }
 
     void Failure()
     {
         audioSource.clip = narratorFailureClips.Sample();
         audioSource.Play();
-        Debug.Log("FailureClip");
     }
     
     
@@ -92,6 +96,29 @@ void Start()
         inConversation = true;
         TraverseToNextConversationTree(suspect, currentTree);
         //Debug.Log("Reached After Traversal");
+    }
+
+    public void Accusation(GameObject suspect) {
+        SuspectScript ss = suspect.GetComponent<SuspectScript>();
+        currentSuspect = suspect;
+        StartCoroutine(PerformAccusation(ss));
+    }
+
+    IEnumerator PerformAccusation(SuspectScript ss)
+    {
+        isAccusing = true;
+        playerPauseScript.StartAccusation();
+        audioSource.clip = accuseClips.Sample();
+        //double waitTime = foundSuspectClip.length; //+ ((double) 2.0);
+        audioSource.Play();
+        yield return new WaitForSeconds(audioSource.clip.length + 1.0f);
+        RegisterAccusation(ss);
+        float waitTime = ss.isAccused();
+        yield return new WaitForSeconds(waitTime + 0.2f);
+        EndAccusation(ss);
+        currentSuspect = null;
+        isAccusing = false;
+        playerPauseScript.EndAccusation();
     }
     
 

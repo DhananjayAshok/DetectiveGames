@@ -16,9 +16,15 @@ public class GodScript : MonoBehaviour
     public int noSuspectsDiscovered = 0;
     [HideInInspector]
     public ClueObject[] discoveredClues;
+    [HideInInspector]
     public string[] discoveredSuspects;
     [HideInInspector]
     public int roundNumber = 1;
+    [HideInInspector]
+    public string accusedSuspect;
+    [HideInInspector]
+    public bool accusedSuspectReasonable;
+    CourtGodScript courtGodScript;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +32,8 @@ public class GodScript : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         discoveredClues = new ClueObject[noClues];
         discoveredSuspects = new string[noSuspects];
+        courtGodScript = GetComponent<CourtGodScript>();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     public void addClue(ClueScript cs)
@@ -71,7 +79,7 @@ public class GodScript : MonoBehaviour
     }
 
     public void ProgressScene()
-    {
+   {
         if (roundNumber == 1)
         {
             roundNumber = 2;
@@ -79,16 +87,27 @@ public class GodScript : MonoBehaviour
         }
         else if (roundNumber == 2)
         {
-            roundNumber = 3;
-            SceneManager.LoadScene(3);
+            if (accusedSuspectReasonable)
+            {
+                roundNumber = 3;
+                SceneManager.LoadScene(2);
+            }
+            else {
+                Debug.Log("Not Yet Implemented");
+            }
         }
     }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (roundNumber == 3) {
+            courtGodScript.Initialize(discoveredClues, noCluesDiscovered, discoveredSuspects, noSuspectsDiscovered);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        for (int iii = 0; iii < noCluesDiscovered; iii++) {
-            Debug.Log(iii);
-            Debug.Log(discoveredClues[iii]);
-        }
+  
     }
 }

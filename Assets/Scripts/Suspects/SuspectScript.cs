@@ -14,7 +14,7 @@ public class SuspectScript : MonoBehaviour
     [Space(10)]
     [Header("Suspect Data")]
     public string suspectName;
-    public bool isGuilty;
+    public bool isReasonableSuspect;
     [Space(10)]
     [Header("Confrontation Records")]
     public List<Confrontation> confrontations;
@@ -48,14 +48,9 @@ public class SuspectScript : MonoBehaviour
     }
 
     public float isAccused() {
-        if (!hasBeenAccused)
-        {
-            audioSource.clip = accusedClips.Sample();
-            audioSource.Play();
-            Debug.Log("Is accused");
-            return audioSource.clip.length;
-        }
-        return 0;
+        audioSource.clip = accusedClips.Sample();
+        audioSource.Play();
+        return audioSource.clip.length;
     }
 
 
@@ -63,7 +58,6 @@ public class SuspectScript : MonoBehaviour
     {
         audioSource.clip = afterAccusedClips.Sample();
         audioSource.Play();
-        Debug.Log("Is Spoken to after accused");
         return audioSource.clip.length;
     }
 

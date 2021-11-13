@@ -21,13 +21,15 @@ public class InteractionScript : MonoBehaviour
     public AudioSource audioSource;
     [HideInInspector]
     public GodScript godScript;
+    [HideInInspector]
+    public bool hasAccused;
 
     private AudioGroup bugClips;
     private AudioGroup foundClueClips;
     private AudioGroup clueBookClips;
     private AudioGroup foundSuspectClips;
     private AudioGroup interactWithInnocentAccusedClips;
-    private AudioGroup interactWithGuiltyAccusedClips;
+    private AudioGroup interactWitReasonablyAccusedClips;
     private AudioGroup accuseClips;
     private AudioGroup narratorIntroductionClips;
 
@@ -45,7 +47,7 @@ public class InteractionScript : MonoBehaviour
         clueBookClips = audioManagementScript.clueBookClips;
         foundSuspectClips = audioManagementScript.foundSuspectClips;
         interactWithInnocentAccusedClips = audioManagementScript.interactWithInnocentAccusedClips;
-        interactWithGuiltyAccusedClips = audioManagementScript.interactWithGuiltyAccusedClips;
+        interactWitReasonablyAccusedClips = audioManagementScript.interactWitReasonablyAccusedClips;
         accuseClips = audioManagementScript.accuseClips;
         narratorIntroductionClips = audioManagementScript.narratorIntroductionClips;
         audioSource.clip = narratorIntroductionClips.Sample();
@@ -84,9 +86,23 @@ public class InteractionScript : MonoBehaviour
             }
         }
         else if (collider.tag == "Finish") {
-            interactionButton.SetActive(true);
-            inPortal = true;
-            playerPortalScript.EnterPortal();
+            if (godScript.roundNumber == 1)
+            {
+                interactionButton.SetActive(true);
+                inPortal = true;
+                playerPortalScript.EnterPortal();
+            }
+            else if (godScript.roundNumber == 2)
+            {
+                if (hasAccused) {
+                    interactionButton.SetActive(true);
+                    inPortal = true;
+                    playerPortalScript.EnterPortal();
+                }
+            }
+            else {
+                Debug.Log("error");
+            }
         }
         
     }
@@ -177,9 +193,9 @@ public class InteractionScript : MonoBehaviour
     }
 
     IEnumerator accusedSuspectInteract() {
-        if (currentSuspect.GetComponent<SuspectScript>().isGuilty)
+        if (currentSuspect.GetComponent<SuspectScript>().isReasonableSuspect)
         {
-            audioSource.clip = interactWithGuiltyAccusedClips.Sample();
+            audioSource.clip = interactWitReasonablyAccusedClips.Sample();
         }
         else {
             audioSource.clip = interactWithInnocentAccusedClips.Sample();
@@ -191,15 +207,16 @@ public class InteractionScript : MonoBehaviour
     }
 
     IEnumerator suspectAccuse() {
+        SuspectScript ss = currentSuspect.GetComponent<SuspectScript>();
         audioSource.clip = accuseClips.Sample();
         //double waitTime = foundSuspectClip.length; //+ ((double) 2.0);
         audioSource.Play();
         yield return new WaitForSeconds(audioSource.clip.length + 1.0f);
-        float waitTime = currentSuspect.GetComponent<SuspectScript>().isAccused();
+        float waitTime = ss.isAccused();
         yield return new WaitForSeconds(waitTime+0.2f);
-        currentSuspect.GetComponent<SuspectScript>().hasBeenAccused = true;
+        ss.hasBeenAccused = true;
+        hasAccused = true;
         handleSuspectScript.Accusation(currentSuspect);
-
     }
 
     void Accuse() {
@@ -212,9 +229,9 @@ public class InteractionScript : MonoBehaviour
         else
         {
             if (!currentSuspect.GetComponent<SuspectScript>().hasBeenAccused) {
-                StartCoroutine(suspectAccuse());
-                
-                
+                //StartCoroutine(suspectAccuse());
+                handleSuspectScript.Accusation(currentSuspect);
+                hasAccused = true;
             }
         }
     }
@@ -231,7 +248,7 @@ public class InteractionScript : MonoBehaviour
         {
             Interact();
         }
-        if (Input.GetKey(KeyCode.Return))
+        if (Input.GetKey(KeyCode.Return) && !hasAccused && accusationSlider.activeSelf)
         {
             counter++;
             if (counter >= accuseCount)

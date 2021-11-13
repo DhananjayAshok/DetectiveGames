@@ -21,6 +21,9 @@ public class PlayerPauseScript : MonoBehaviour
     public bool isMiniPaused;
     [HideInInspector]
     public bool isInConversation;
+    [HideInInspector]
+    public bool isAccusing;
+
 
     Transform playerPausePoint;
 
@@ -106,6 +109,19 @@ public class PlayerPauseScript : MonoBehaviour
         UnFreeze();
         MiniUnpauseProcess();
         isInConversation = false;
+    }
+
+    public void StartAccusation()
+    {
+        Freeze();
+        isAccusing = true;
+    }
+
+    public void EndAccusation()
+    {
+        UnFreeze();
+        MiniUnpauseProcess(); // Shouldn't be needed but shouldn't hurt
+        isAccusing = false;
     }
 
     void PauseProcess() {

@@ -16,6 +16,8 @@ public class PlayerPortalScript : MonoBehaviour
     AudioGroup portalEntryClips;
     AudioGroup portalExitClips;
     AudioGroup portalActivateClips;
+    AudioGroup round2SuccessPortalActivateClips;
+    AudioGroup round2FailurePortalActivateClips;
     Animator animator;
     GameObject mainCamera;
     vThirdPersonCamera camScript;
@@ -32,6 +34,8 @@ public class PlayerPortalScript : MonoBehaviour
         portalEntryClips = audioManagementScript.portalEntryClips;
         portalExitClips = audioManagementScript.portalExitClips;
         portalActivateClips = audioManagementScript.portalActivateClips;
+        round2SuccessPortalActivateClips = audioManagementScript.round2SuccessPortalActivateClips;
+        round2FailurePortalActivateClips = audioManagementScript.round2FailurePortalActivateClips;
         godScript = GameObject.FindGameObjectsWithTag("God")[0].GetComponent<GodScript>(); // There should be one and only one God in the scene
         animator = this.transform.parent.gameObject.GetComponent<Animator>();
         player = GameObject.FindGameObjectsWithTag("Player")[0];
@@ -51,9 +55,53 @@ public class PlayerPortalScript : MonoBehaviour
     public void ActivatePortal() {
         playerPauseScript.Freeze();
         camScript.enabled = false;
+        if (godScript.roundNumber == 2)
+        {
+            if (godScript.accusedSuspectReasonable)
+            {
+                round2SuccessActivatePortal();
+            }
+            else {
+                round2FailureActivatePortal();
+            }
+        }
+        else {
+            audioSource.clip = portalActivateClips.Sample();
+            audioSource.Play();
+            StartCoroutine(portalActivateAnimation());
+        }
+    }
+
+    public void round2SuccessActivatePortal() {
+        audioSource.clip = round2SuccessPortalActivateClips.Sample();
+        audioSource.Play();
+        StartCoroutine(round2SuccessPortalActivateAnimation());
+    }
+
+    IEnumerator round2SuccessPortalActivateAnimation()
+    {
+        animator.SetBool("isPortalActivated", true);
+        animator.SetTrigger("PortalActivated");
+        yield return new WaitForSeconds(stayAnimationLength);
+        movingForward = true;
+        yield return new WaitForSeconds(jumpAnimationLength);
+        godScript.ProgressScene();
+    }
+
+    IEnumerator round2FailurePortalActivateAnimation()
+    {
+        animator.SetBool("isPortalActivated", true);
+        animator.SetTrigger("PortalActivated");
+        yield return new WaitForSeconds(stayAnimationLength);
+        movingForward = true;
+        yield return new WaitForSeconds(jumpAnimationLength);
+        godScript.ProgressScene();
+    }
+
+    public void round2FailureActivatePortal() {
         audioSource.clip = portalActivateClips.Sample();
         audioSource.Play();
-        StartCoroutine(portalActivateAnimation());
+        StartCoroutine(round2FailurePortalActivateAnimation());
     }
 
     IEnumerator portalActivateAnimation() {

@@ -13,7 +13,7 @@ public class AudioManagementScript : MonoBehaviour
     [Header("Suspect Interaction Clips")]
     public AudioGroup foundSuspectClips;
     public AudioGroup interactWithInnocentAccusedClips;
-    public AudioGroup interactWithGuiltyAccusedClips;
+    public AudioGroup interactWitReasonablyAccusedClips;
     public AudioGroup accuseClips;
     public AudioGroup leaveConversationClips;
 
@@ -56,7 +56,8 @@ public class AudioManagementScript : MonoBehaviour
     public AudioGroup portalEntryClips;
     public AudioGroup portalExitClips;
     public AudioGroup portalActivateClips;
-
+    public AudioGroup round2SuccessPortalActivateClips;
+    public AudioGroup round2FailurePortalActivateClips;
 
     // Start is called before the first frame update
     void Start()
