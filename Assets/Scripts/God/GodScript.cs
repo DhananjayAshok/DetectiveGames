@@ -82,8 +82,8 @@ public class GodScript : MonoBehaviour
    {
         if (roundNumber == 1)
         {
-            roundNumber = 2;
-            SceneManager.LoadScene(1); // should be 2 if you have a main menu
+            roundNumber = 3; // Should be 2
+            SceneManager.LoadScene(2); // should be 2 if you have a main menu should be 1 if u dont
         }
         else if (roundNumber == 2)
         {

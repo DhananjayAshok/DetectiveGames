@@ -19,6 +19,7 @@ public class CourtGodScript : MonoBehaviour
     GameObject accused;
     GameObject[] spectators;
     CourtAnimationScript courtAnimationScript;
+    CourtSceneCanvasScript courtSceneCanvasScript;
 
     // Start is called before the first frame update
     void Start()
@@ -46,8 +47,17 @@ public class CourtGodScript : MonoBehaviour
     }
 
     void InitializeListeners() {
+        courtSceneCanvasScript = GameObject.FindGameObjectWithTag("CourtSceneCanvas").GetComponent<CourtSceneCanvasScript>();
         courtAnimationScript.Initialize(player, judge, accused, spectators);
+        courtSceneCanvasScript.Initialize(this, this.discoveredClues, this.noCluesDiscovered, this.discoveredSuspects, this.noSuspectsDiscovered);
     }
+
+    public void SubmitResponse() {
+        HashSet<string> clueNames, statementNames;
+        clueNames = courtSceneCanvasScript.ReadClueResponses();
+        statementNames = courtSceneCanvasScript.ReadStatementResponses();
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -74,7 +84,7 @@ public class CourtGodScript : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.T))
         {
-            courtAnimationScript.AnimateLOQConcluding(true);
+            courtSceneCanvasScript.ToggleState();
         }
     }
 }

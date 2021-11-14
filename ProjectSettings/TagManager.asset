@@ -13,6 +13,7 @@ TagManager:
   - Accused
   - Judge
   - spectator
+  - CourtSceneCanvas
   layers:
   - Default
   - TransparentFX
