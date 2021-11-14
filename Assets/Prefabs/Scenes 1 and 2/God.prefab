@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1147917515003210563}
   - component: {fileID: 6217438726799595176}
   - component: {fileID: 4929000277431090065}
+  - component: {fileID: 5006326018887915533}
   m_Layer: 0
   m_Name: God
   m_TagString: God
@@ -67,3 +68,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e309ad45d6e512144b1bd5ea3f59f50d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  discoveredSuspects: []
+  noCluesDiscovered: 0
+  noSuspectsDiscovered: 0
+  AreNoSpectators: 0
+--- !u!114 &5006326018887915533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147917515003210561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 494165d62de64fe439b61f6e657c4e24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAnimator: {fileID: 0}
+  accusedAnimator: {fileID: 0}
+  judgeAnimator: {fileID: 0}
+  spectatorAnimators: []

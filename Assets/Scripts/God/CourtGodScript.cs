@@ -18,10 +18,12 @@ public class CourtGodScript : MonoBehaviour
     GameObject judge;
     GameObject accused;
     GameObject[] spectators;
+    CourtAnimationScript courtAnimationScript;
 
     // Start is called before the first frame update
     void Start()
     {
+        courtAnimationScript = GetComponent<CourtAnimationScript>();
     }
 
     public void Initialize(ClueObject[] discoveredClues, int noCluesDiscovered, string[] discoveredSuspects, int noSuspectsDiscovered) {
@@ -40,12 +42,39 @@ public class CourtGodScript : MonoBehaviour
         else {
             AreNoSpectators = (spectators[0] == null);
         }
+        InitializeListeners();
+    }
 
+    void InitializeListeners() {
+        courtAnimationScript.Initialize(player, judge, accused, spectators);
     }
 
     // Update is called once per frame
     void Update()
     {
-                
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            courtAnimationScript.AnimatePlayerTalking();
+        }
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            courtAnimationScript.AnimateJudgeTalking();
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            courtAnimationScript.AnimateAccusedTalking();
+        }
+        else if (Input.GetKeyDown(KeyCode.U))
+        {
+            courtAnimationScript.AnimateAccusedQuestioning();
+        }
+        else if (Input.GetKeyDown(KeyCode.Y))
+        {
+            courtAnimationScript.AnimatePlayerResponding();
+        }
+        else if (Input.GetKeyDown(KeyCode.T))
+        {
+            courtAnimationScript.AnimateLOQConcluding(true);
+        }
     }
 }
