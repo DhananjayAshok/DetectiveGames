@@ -92,6 +92,7 @@ void Start()
         playerPauseScript.StartConversation();
         currentSuspect = suspect;
         SuspectScript script = suspect.GetComponent<SuspectScript>();
+        script.playIdleTalkingAnimation();
         currentTree = script.baseTree;
         inConversation = true;
         TraverseToNextConversationTree(suspect, currentTree);
@@ -111,6 +112,7 @@ void Start()
         audioSource.clip = accuseClips.Sample();
         //double waitTime = foundSuspectClip.length; //+ ((double) 2.0);
         audioSource.Play();
+        ss.playAccusedAnimation();
         yield return new WaitForSeconds(audioSource.clip.length + 1.0f);
         RegisterAccusation(ss);
         float waitTime = ss.isAccused();
@@ -160,7 +162,9 @@ void Start()
         AudioSource suspectAudioSource = suspect.GetComponent<AudioSource>();
         suspectAudioSource.clip = tree.answer;
         suspectAudioSource.Play();
+        suspect.GetComponent<SuspectScript>().playTalkingAnimation();
         yield return new WaitForSeconds(suspectAudioSource.clip.length + 1.0f);
+        suspect.GetComponent<SuspectScript>().playIdleTalkingAnimation();
         HandleButtonActivation(tree);
 
     }
@@ -173,6 +177,7 @@ void Start()
     {
         inConversation = false;
         deactivateButtons();
+        currentSuspect.GetComponent<SuspectScript>().playIdleAnimation();
         currentSuspect = null;
         currentTree = null;
         if (afterConfrontation)

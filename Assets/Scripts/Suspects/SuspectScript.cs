@@ -84,6 +84,19 @@ public class SuspectScript : MonoBehaviour
     public void playIdleAnimation() {
         animator.Play("Idle");
     }
+
+    public void playIdleTalkingAnimation() {
+        animator.Play("Idle Talking");
+    }
+
+    public void playTalkingAnimation()
+    {
+        animator.Play("Talking");
+    }
+
+    public void playAccusedAnimation() {
+        animator.Play("Accused");
+    }
     // Update is called once per frame
     void Update()
     {

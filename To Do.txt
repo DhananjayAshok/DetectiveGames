@@ -1,13 +1,5 @@
-- Integrate: Assume suspect has fixed LOQ array and then bring together audio and animation
-
-- Figure out camera stuff
-
-- You can generalize as follows - user must make n different accused objects with accused tag, store the name in the accused script. OnSceneLoad function should loop through and delete all but the one we want before we initialize the scene scripts. 
-
-
-- Do a full test
-
 - create a main menu and end screen menu
 
-- Create a save and load system (perhaps naively between scenes or with pause UI)
+- Create nonsuspect people with routines. 
+  
 
