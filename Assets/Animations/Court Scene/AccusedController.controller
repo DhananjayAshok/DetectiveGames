@@ -310,7 +310,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: 5357d845ac82a3c458cd6a71c68a63ac,
+    m_Motion: {fileID: -203655887218126122, guid: 5d6a10c29e0c57b479eb5aaa89dcd59c,
       type: 3}
     m_Threshold: 0.5
     m_Position: {x: 0, y: 0}
@@ -319,7 +319,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: b3154d1312fa26c41b0a4d59cf7d621f,
+    m_Motion: {fileID: -203655887218126122, guid: c32a57ae772dc80409c81a74645b4ff8,
       type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
@@ -579,10 +579,6 @@ AnimatorStateMachine:
   m_EntryTransitions:
   - {fileID: -9184831884771168364}
   m_StateMachineTransitions:
-  - first: {fileID: 8879753346305487818}
-    second:
-    - {fileID: -9025261639834794790}
-    - {fileID: -683255113170868197}
   - first: {fileID: 8646423049533420990}
     second:
     - {fileID: -4496954136456166317}
@@ -591,16 +587,20 @@ AnimatorStateMachine:
     - {fileID: -3015302080381261182}
     - {fileID: -188870182586081155}
     - {fileID: 8642572315130343325}
+  - first: {fileID: 4400359526804742302}
+    second: []
   - first: {fileID: 1384323164657691362}
     second:
     - {fileID: 4202651874016417566}
     - {fileID: -1731473759440036059}
-  - first: {fileID: 4400359526804742302}
-    second: []
   - first: {fileID: -4821037480974521472}
     second:
     - {fileID: -1794516589576023756}
     - {fileID: 7102217167243815734}
+  - first: {fileID: 8879753346305487818}
+    second:
+    - {fileID: -9025261639834794790}
+    - {fileID: -683255113170868197}
   - first: {fileID: -2609278550017177252}
     second:
     - {fileID: 6360702185083473337}
@@ -1352,7 +1352,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: c2232a940b8f23146b761baefd38a074,
+  m_Motion: {fileID: -203655887218126122, guid: 64afc5c7e9ca15a4c84ae1628708f10f,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
