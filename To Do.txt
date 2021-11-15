@@ -1,5 +1,3 @@
-- Create LOQ object
-
 - Integrate: Assume suspect has fixed LOQ array and then bring together audio and animation
 
 - Figure out camera stuff

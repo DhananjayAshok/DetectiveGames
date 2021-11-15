@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 639b4003a2d8feb4aba9a5acc1ad5ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueNameText: {fileID: 7609597107103560939}
+  statementNameText: {fileID: 7609597107103560939}
 --- !u!1 &7609597106322414723
 GameObject:
   m_ObjectHideFlags: 0

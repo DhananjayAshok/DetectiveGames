@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Talker
+{
+    Player,
+    Judge,
+    Accused
+}
+
 public class CourtAnimationScript : MonoBehaviour
 {
     
@@ -78,7 +85,15 @@ public class CourtAnimationScript : MonoBehaviour
     }
 
 
+    public void AnimateIdling() {
+        SetAllIdlingState();
+        SetAnimatorVars();
+    }
 
+    public void AnimateTalking(Talker talker) {
+        SetTalkingState(talker);
+        SetAnimatorVars();
+    }
 
     public void AnimatePlayerTalking() {
         SetTalkingState(Talker.Player);
@@ -119,6 +134,13 @@ public class CourtAnimationScript : MonoBehaviour
     }
 
     #region State Setters
+
+    void SetAllIdlingState() {
+        ResetAll();
+        isPlayerIdling = true;
+        isJudgeIdling = true;
+        isAccusedIdling = true;
+    }
     void SetAccusedQuestioningState() {
         ResetAll();
         accusedQuestioning = true;
@@ -142,12 +164,6 @@ public class CourtAnimationScript : MonoBehaviour
         ResetAll();
         isConcluding = true;
         isConclusionSuccess = success;
-    }
-
-    public enum Talker {
-        Player, 
-        Judge, 
-        Accused
     }
 
     void SetTalkingState(Talker talker) {

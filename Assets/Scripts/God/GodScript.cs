@@ -41,6 +41,13 @@ public class GodScript : MonoBehaviour
         if (cs.isTriviallyUseless) { }
         else
         {
+            for (int iii = 0; iii < noCluesDiscovered; iii++)
+            {
+                if (discoveredClues[iii].clueName.Equals(cs.clueName))
+                {
+                    return;
+                }
+            }
             discoveredClues[noCluesDiscovered] = new ClueObject(cs, noCluesDiscovered);
             noCluesDiscovered++;
         }
@@ -82,8 +89,8 @@ public class GodScript : MonoBehaviour
    {
         if (roundNumber == 1)
         {
-            roundNumber = 3; // Should be 2
-            SceneManager.LoadScene(2); // should be 2 if you have a main menu should be 1 if u dont
+            roundNumber = 2; // Should be 2
+            SceneManager.LoadScene(1); // should be 2 if you have a main menu should be 1 if u dont
         }
         else if (roundNumber == 2)
         {
@@ -98,9 +105,23 @@ public class GodScript : MonoBehaviour
         }
     }
 
+    public void DeleteNonAccusedObjects() {
+        GameObject[] accusedObjects = GameObject.FindGameObjectsWithTag("Accused");
+        for (int iii = 0; iii < accusedObjects.Length; iii++) {
+            if (accusedObjects[iii].GetComponent<AccusedScript>().suspectName.Equals(accusedSuspect))
+            {
+
+            }
+            else {
+                Destroy(accusedObjects[iii]);
+            }
+        }
+    }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (roundNumber == 3) {
+            DeleteNonAccusedObjects();
             courtGodScript.Initialize(discoveredClues, noCluesDiscovered, discoveredSuspects, noSuspectsDiscovered);
         }
     }

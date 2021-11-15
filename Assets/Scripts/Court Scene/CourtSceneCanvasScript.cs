@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CourtSceneCanvasScript : MonoBehaviour
 {
-    public GameObject limitText, resetCluesButton, resetStatementsButton, submitButton, cluesContent, statementsContent;
+    public GameObject questionText, limitText, resetCluesButton, resetStatementsButton, submitButton, cluesContent, statementsContent;
     public GameObject clueTogglePrefab, statementTogglePrefab;
     [HideInInspector]
     public GameObject[] clueToggles;
@@ -50,9 +50,18 @@ public class CourtSceneCanvasScript : MonoBehaviour
 
     }
 
+    public void UpdateInfo(string question, int limit) {
+        UpdateQuestion(question);
+        UpdateLimit(limit);
+    }
+
     public void UpdateLimit(int limit) {
         this.limit = limit;
         limitText.GetComponent<Text>().text = "Item Selected: " + noItemsSelected + "/" + limit; 
+    }
+
+    public void UpdateQuestion(string question) {
+        questionText.GetComponent<Text>().text = question;
     }
 
     public void DeactivateToggles() {
