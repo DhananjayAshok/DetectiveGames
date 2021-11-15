@@ -72,6 +72,7 @@ This has many steps so the basic setup is
 ## Step 6: Making the Court Scene Player, Judge and Spectators
 
 - Create a new scene and after Ctrl+Shift+B add it to the list of scenes just like you did the other two. 
+- Drag the CourtSceneCanvasPrefab onto the scene
 - Drag any FBX model onto the scene and tag it Player to make it a player object. Under animation controller select the CourtRoomPlayer Controller and give it an audiosource component
 - Similarly create the Judge object and set its controller
 - You can do the same for any spectators you might want but no audiosource
