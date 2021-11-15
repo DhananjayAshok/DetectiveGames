@@ -28,7 +28,7 @@ The rest of this document details how to start the most basic version of this, I
 
 You may have to install the Invector Basic Locomotion package from the Asset store. 
 
-
+[Link](BasicTutorial.md)
 ## Making a Detective Game in Unity - Basic Tutorial
 
   
