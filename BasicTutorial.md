@@ -68,3 +68,38 @@ This has many steps so the basic setup is
 - If you want to customize animation clips for any state you can do so in Motion animation of each state. 
 - Then go to the object with the fbx model (the child of Body) and add an Animator (it may already have one which is okay), set the controller to this one you just made
 - Go to the suspect object and in the suspect script set the animator to the one of the object with the fbx model
+
+## Step 6: Making the Court Scene Player, Judge and Spectators
+
+- Create a new scene and after Ctrl+Shift+B add it to the list of scenes just like you did the other two. 
+- Drag any FBX model onto the scene and tag it Player to make it a player object. Under animation controller select the CourtRoomPlayer Controller and give it an audiosource component
+- Similarly create the Judge object and set its controller
+- You can do the same for any spectators you might want but no audiosource
+
+## Step 7:  Creating Accused characters
+- Drag any FBX model 
+- Tag it Accused
+- Give it an AudioSource
+- Drag a AccusedScript onto it
+- Fill out the accused name and add audio clips that you want to play if they are convicted/ declared not guilty (This audioclip is the only thing that plays at the games conclusion so if you want the player to say something etc make sure the clip includes it)
+
+### Filling out Line of Questioning Objects (LOQs)
+The LOQ holds information on Lines of Questioning. Each will consist of 4 phases, in each of these phases the audio will go player, judge, accused, accused, judge, player. This will allow you to make most permutations and combinations of actors speaking. E.g. if you wish to have the player speak a line, then the accused speak a line while the judge remains silent you can click the skip option on the judge clips, and the second accused+player clips. This will result in only those two lines said in order. 
+
+Phase 1: Pre questioning phase. 
+Phase 2: Questioning phase where accused poses a question to the player
+Phase 3: Player response phase where the player must pick a set of clues and statements/testimonies to answer the question
+Phase 4: Line of Questioning Conlcusion (different based on success or failure of player response)
+
+The LOQ has information on the question posed to the player, as well as the answers marked in lists of clueNames and suspectNames. If they player answers with the same clueNames and statementNames (suspectNames) the LOQ is a success. You can limit the total number of clues + statements the player can submit for this LOQ and you can also specify a cutoff such that even if the player does not guess all of the clues, statements correctly if they guess some number of them it is sufficient to be considered a success.
+
+Each successful LOQ raises the score by 1, at the end of all provided LOQs the game checks if the score is greater than the minimum requirement stated by the user and iff it is the conclusion is success. 
+
+### Repeat for all Accusable Characters
+Repeat the above process for characters who are reasonable suspects i.e you want the player to be able to accuse them and take them to court. It is okay if they overlap and look weird in the scene view of unity, when you actually transition to the scene the  game will delete all of these but the suspect that the player is accusing. 
+
+## Step 8: Fixing Lighting
+You may need to pre-bake lighting for the 2nd and 3rd scenes. See Unity tutorials on lighting for instructions on this. 
+
+## Step 9: Build and Play
+That's it. You're done!
