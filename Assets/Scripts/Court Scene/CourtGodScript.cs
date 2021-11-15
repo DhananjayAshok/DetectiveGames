@@ -67,8 +67,10 @@ public class CourtGodScript : MonoBehaviour
 
 
     void InitializeListeners() {
-        courtSceneCanvasScript = GameObject.FindGameObjectWithTag("CourtSceneCanvas").GetComponent<CourtSceneCanvasScript>();
+        Debug.Log(courtAnimationScript);
+        Debug.Log(player);
         courtAnimationScript.Initialize(player, judge, accused, spectators);
+        courtSceneCanvasScript = GameObject.FindGameObjectWithTag("CourtSceneCanvas").GetComponent<CourtSceneCanvasScript>();
         courtSceneCanvasScript.Initialize(this, this.discoveredClues, this.noCluesDiscovered, this.discoveredSuspects, this.noSuspectsDiscovered);
     }
 
