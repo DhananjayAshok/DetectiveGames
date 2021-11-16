@@ -5,7 +5,7 @@
 A simple tutorial that will allow you to make a detective game using the existing setup - almost no code, should be pretttty simple.
 
 ## Step 0: Make a Menu Scene
-You can copy the scene from the demo scene or make your own. Just make sure there is a button which has the MainMenuProgressScript as a component and add the MainMenuProgressScript->MenuAdvanceScene as a listener to its OnClick property. Go to File->Build Settings and add the currently open scene to the build order. 
+You can copy the scene from the demo scene or make your own and drag the menu canvas prefab onto the scene. Just make sure there is a button which has the MainMenuProgressScript as a component and add the MainMenuProgressScript->MenuAdvanceScene as a listener to its OnClick property. Go to File->Build Settings and add the currently open scene to the build order. 
 
 ## Step 1: Making a basic scene
 
