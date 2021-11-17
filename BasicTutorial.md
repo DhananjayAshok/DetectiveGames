@@ -4,7 +4,8 @@
 
 A simple tutorial that will allow you to make a detective game using the existing setup - almost no code, should be pretttty simple.
 
-  
+## Step 0: Make a Menu Scene
+You can copy the scene from the demo scene or make your own and drag the menu canvas prefab onto the scene. Just make sure there is a button which has the MainMenuProgressScript as a component and add the MainMenuProgressScript->MenuAdvanceScene as a listener to its OnClick property. Go to File->Build Settings and add the currently open scene to the build order. 
 
 ## Step 1: Making a basic scene
 
@@ -100,7 +101,7 @@ Each successful LOQ raises the score by 1, at the end of all provided LOQs the g
 Repeat the above process for characters who are reasonable suspects i.e you want the player to be able to accuse them and take them to court. It is okay if they overlap and look weird in the scene view of unity, when you actually transition to the scene the  game will delete all of these but the suspect that the player is accusing. 
 
 ## Step 8: Fixing Lighting
-You may need to pre-bake lighting for the 2nd and 3rd scenes. See Unity tutorials on lighting for instructions on this. 
+You may need to pre-bake lighting for all the scenes. Go to Windows-> Rendering->Lighting and compute lightmaps/ bake lighting.  
 
 ## Step 9: Build and Play
 That's it. You're done!
