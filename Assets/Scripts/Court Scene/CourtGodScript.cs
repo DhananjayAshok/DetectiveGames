@@ -67,8 +67,6 @@ public class CourtGodScript : MonoBehaviour
 
 
     void InitializeListeners() {
-        Debug.Log(courtAnimationScript);
-        Debug.Log(player);
         courtAnimationScript.Initialize(player, judge, accused, spectators);
         courtSceneCanvasScript = GameObject.FindGameObjectWithTag("CourtSceneCanvas").GetComponent<CourtSceneCanvasScript>();
         courtSceneCanvasScript.Initialize(this, this.discoveredClues, this.noCluesDiscovered, this.discoveredSuspects, this.noSuspectsDiscovered);
@@ -117,7 +115,6 @@ public class CourtGodScript : MonoBehaviour
         else
         {
             source = playerAudioSource;
-            Debug.Log("Error");
         }
         source.clip = clip;
         source.Play();

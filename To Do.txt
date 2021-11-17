@@ -1,4 +1,4 @@
-- create a main menu and end screen menu
+- create end screen menu
 
 - Create nonsuspect people with routines. 
   

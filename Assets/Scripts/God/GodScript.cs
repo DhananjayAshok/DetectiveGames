@@ -90,20 +90,21 @@ public class GodScript : MonoBehaviour
         if (roundNumber == 1)
         {
             roundNumber = 2; // Should be 2
-            SceneManager.LoadScene(1); // should be 2 if you have a main menu should be 1 if u dont
+            SceneManager.LoadScene(2); // should be 2 if you have a main menu should be 1 if u dont
         }
         else if (roundNumber == 2)
         {
             if (accusedSuspectReasonable)
             {
                 roundNumber = 3;
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(3);
             }
             else {
                 Debug.Log("Not Yet Implemented");
             }
         }
     }
+
 
     public void DeleteNonAccusedObjects() {
         GameObject[] accusedObjects = GameObject.FindGameObjectsWithTag("Accused");
