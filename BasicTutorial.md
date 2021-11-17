@@ -1,11 +1,13 @@
 # Making a Detective Game in Unity - Basic Tutorial
 
   
-
 A simple tutorial that will allow you to make a detective game using the existing setup - almost no code, should be pretttty simple.
+
 
 ## Step 0: Make a Menu Scene
 You can copy the scene from the demo scene or make your own and drag the menu canvas prefab onto the scene. Just make sure there is a button which has the MainMenuProgressScript as a component and add the MainMenuProgressScript->MenuAdvanceScene as a listener to its OnClick property. Go to File->Build Settings and add the currently open scene to the build order. 
+
+# Making Scene 1 and Scene 2
 
 ## Step 1: Making a basic scene
 
@@ -70,7 +72,29 @@ This has many steps so the basic setup is
 - Then go to the object with the fbx model (the child of Body) and add an Animator (it may already have one which is okay), set the controller to this one you just made
 - Go to the suspect object and in the suspect script set the animator to the one of the object with the fbx model
 
-## Step 6: Making the Court Scene Player, Judge and Spectators
+## Step 6 (Optional): Make Environment Characters and Wanderers
+These are objects/humanoids that walk around the scene and do certain actions. The player cannot interact with them in any way but the wanderers can play an audioclip if they come into contact with the player. Use these characters to populate the scene with NPC's who are not particularly people of interest and other automated objects (e.g. a drone moving around the scene). 
+- To do so first make sure to mark all the objects where you want the AI to be able to walk over as static (top right of inspector when selecting the object). This should be done for all planes, cubes and surfaces that you expect them to be able to stand on. 
+- Then go to Windows->AI->Navigation and select "Bake". This will show you blue spots on the scene view, these are the areas which your AI can walk over, if they don't seem right you might be missing some static objects or you may have overlapping objects. You need to do these 2 steps only once for all environment agents. If you add more structures or paths then bake again
+- To actually make the character you will need to create a single gameobject that holds the body. (This could be a humanoid FBX that you drag onto the scene or any simple shape). Ensure that it has a collider. 
+- Make sure to give it a NavMeshAgent if you want it to move around. Give it an audio source if you want it to play audioclips at any point. Give it an animator if you want it to play humanoid animations like idle and walking etc, set the animation controller to the Environment Wanderers Controller or a duplicate of it (Ctrl+D) if you want to customize animations.
+- If you want the character to move between locations regularly, add the locations to the GoalSet GoalWaypoints list. You can create empty gameobjects and add them to this for convinience. 
+- If you want the character to stay at the waypoint for longer before going to the next one change the waitTimeAtWaypoint float. 
+### Part A (Optional): Customizing Animations
+- If you want to customize animation that will happen when they reach the location go to the duplicate of the environment wanderers controller that you are using for this character and do the following changes
+- If you want to change an existing clip, click on a state and change the motion. 
+- If you want to delete a clip go to the AtDestinationSubstates and delete the **last state i.e New State with highest number**. You will then need to update the noDestinationAnimationClips variable in the script of this character to be the number of states left. 
+- If you want to add a clip then create a new state in the AtDestinateSubstates statemachine (along with all the other New State variables). Create a transition from the entry to this new state and give it a condition of RNGInt Equals N-1 where N is the number of clip states that now exist in this layer (e.g. if after you add another state there are 5 New State states then make the condition RNGInt Equals 4). Create a transition from this state to itself with no condition. Then create a transition from this state to the exit, add a condition on this of isMoving true. Remove the has Exit Time option for this exit transition. Finally you have to update the noDestinationAnimationClips variable in the character
+
+## Step 7 (Optional): Making Teleporters
+Theser are objects that allow the player to jump from one spot on the scene to another. It is very useful if you want to have 2 closed rooms that the player cannot "walk" between but you want both of them to be accessible in the same scene.( e.g. a pirate ship at sea where the murder happens and the nearest port could both be linked with a teleporter). 
+- To do so simply drag the Teleporter prefab onto the scene. 
+- Place each of the spots in the desired locations and they are now linked. 
+- If you want audio to play when the player teleports add clips in the audioGroup. 
+
+
+# Making the Court Scene
+## Step 1: Making the Player, Judge and Spectators
 
 - Create a new scene and after Ctrl+Shift+B add it to the list of scenes just like you did the other two. 
 - Drag the CourtSceneCanvasPrefab onto the scene
@@ -78,7 +102,7 @@ This has many steps so the basic setup is
 - Similarly create the Judge object and set its controller
 - You can do the same for any spectators you might want but no audiosource
 
-## Step 7:  Creating Accused characters
+## Step 2:  Creating Accused characters
 - Drag any FBX model 
 - Tag it Accused
 - Give it an AudioSource
@@ -100,8 +124,11 @@ Each successful LOQ raises the score by 1, at the end of all provided LOQs the g
 ### Repeat for all Accusable Characters
 Repeat the above process for characters who are reasonable suspects i.e you want the player to be able to accuse them and take them to court. It is okay if they overlap and look weird in the scene view of unity, when you actually transition to the scene the  game will delete all of these but the suspect that the player is accusing. 
 
-## Step 8: Fixing Lighting
-You may need to pre-bake lighting for all the scenes. Go to Windows-> Rendering->Lighting and compute lightmaps/ bake lighting.  
+# Final Steps
+## Step 1: Fixing Lighting
+You may need to pre-bake lighting for all the scenes. Go to Windows-> Rendering->Lighting and compute lightmaps/ bake lighting with each scene open.  
 
-## Step 9: Build and Play
-That's it. You're done!
+## Step 2: Build and Play
+That's it. You're done! 
+- Go to File->Build Settings-> Player Settings and change the details to fit your needs. Pick the intended target platform here (you can change this easily). 
+- When you are ready go to File->Build Settings-> Build and Run
