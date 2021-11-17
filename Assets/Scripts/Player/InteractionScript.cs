@@ -38,6 +38,8 @@ public class InteractionScript : MonoBehaviour
     int counter = 0;
     int accuseCount = 50;
     bool inPortal;
+    bool inTeleporter;
+    TeleporterScript currentTeleporter;
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +69,10 @@ public class InteractionScript : MonoBehaviour
     {
         GameObject obj = collider.gameObject.transform.parent.gameObject;
         return obj.transform.parent.gameObject;
+    }
+
+    TeleporterScript getCurrentTeleporterScriptFromCollider(Collider collider) {
+        return collider.gameObject.GetComponent<TeleporterScript>();
     }
 
     void OnTriggerEnter(Collider collider) {
@@ -104,7 +110,13 @@ public class InteractionScript : MonoBehaviour
                 Debug.Log("error");
             }
         }
-        
+        else if (collider.tag == "teleporter")
+        {
+            inTeleporter = true;
+            interactionButton.SetActive(true);
+            currentTeleporter = getCurrentTeleporterScriptFromCollider(collider);
+        }
+
     }
 
 
@@ -128,10 +140,16 @@ public class InteractionScript : MonoBehaviour
             inPortal = false;
             playerPortalScript.ExitPortal();
         }
+        else if (collider.tag == "teleporter")
+        {
+            inTeleporter = false;
+            interactionButton.SetActive(false);
+            currentTeleporter = null;
+        }
     }
 
     void Interact() {
-        if (currentClue == null && currentSuspect == null && !inPortal)
+        if (currentClue == null && currentSuspect == null && !inPortal && !inTeleporter)
         {
             audioSource.clip = bugClips.Sample();
             audioSource.Play();
@@ -177,6 +195,10 @@ public class InteractionScript : MonoBehaviour
         else if (inPortal)
         {
             playerPortalScript.ActivatePortal();
+        }
+        else if (inTeleporter)
+        {
+            currentTeleporter.Teleport();
         }
         else {
             Debug.Log("Error");

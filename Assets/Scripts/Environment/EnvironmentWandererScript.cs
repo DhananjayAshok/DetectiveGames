@@ -10,7 +10,7 @@ public class EnvironmentWandererScript : MonoBehaviour
     public GoalSet goalSet;
     public float waitTimeAtWaypoint=5;
     public float speed=1;
-    public int noDestinationAnimationClips;
+    public int noDestinationAnimationClips=3;
     public float randomizationTime=5f;
     AudioSource audioSource;
     Animator animator;
@@ -30,8 +30,10 @@ public class EnvironmentWandererScript : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         animator = GetComponent<Animator>();
-        navMeshAgent.speed = speed;
-        if (!goalSet.noGoals())
+        if (navMeshAgent != null) {
+            navMeshAgent.speed = speed;
+        }
+        if (!goalSet.noGoals() && navMeshAgent != null)
         {
             Move();
         }
@@ -109,7 +111,7 @@ public class EnvironmentWandererScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!noGoals)
+        if (!noGoals && navMeshAgent != null)
         {
             if (isMoving)
             {

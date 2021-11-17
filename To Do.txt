@@ -1,5 +1,4 @@
 - create end screen menu
 
-- Create nonsuspect people with routines. 
-  
+- Create doors and teleportation.   
 
