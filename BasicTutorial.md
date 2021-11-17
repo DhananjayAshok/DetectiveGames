@@ -90,8 +90,9 @@ These are objects/humanoids that walk around the scene and do certain actions. T
 ## Step 7 (Optional): Making Teleporters
 Theser are objects that allow the player to jump from one spot on the scene to another. It is very useful if you want to have 2 closed rooms that the player cannot "walk" between but you want both of them to be accessible in the same scene.( e.g. a pirate ship at sea where the murder happens and the nearest port could both be linked with a teleporter). 
 - To do so simply drag the Teleporter prefab onto the scene. 
-- Place each of the spots in the desired locations and they are now linked. 
-- If you want audio to play when the player teleports add clips in the audioGroup. 
+- Place each of the spots P1 and P2 in the desired locations and they are now linked. 
+- If you want audio to play when the player teleports add clips in the audioGroups of each teleport location. 
+- You can add decoration around the spots P1 and P2 (e.g. a door) if you want to make it more realistic. 
 
 
 # Making the Court Scene
