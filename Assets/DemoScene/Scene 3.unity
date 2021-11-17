@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 6bf24d2d2e24c2449807f9ec3b990d92,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -1443,6 +1444,21 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 976980987337220818, guid: a68ed3c2a895a0c4eb1422d922ff4131,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976980987337220818, guid: a68ed3c2a895a0c4eb1422d922ff4131,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976980987337220818, guid: a68ed3c2a895a0c4eb1422d922ff4131,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 976980987687697711, guid: a68ed3c2a895a0c4eb1422d922ff4131,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1456,6 +1472,21 @@ PrefabInstance:
     - target: {fileID: 976980987687697711, guid: a68ed3c2a895a0c4eb1422d922ff4131,
         type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976980988015664176, guid: a68ed3c2a895a0c4eb1422d922ff4131,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976980988015664176, guid: a68ed3c2a895a0c4eb1422d922ff4131,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976980988015664176, guid: a68ed3c2a895a0c4eb1422d922ff4131,
+        type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 976980988201880122, guid: a68ed3c2a895a0c4eb1422d922ff4131,
