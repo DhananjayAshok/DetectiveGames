@@ -34,7 +34,8 @@ public class MenuAudioScript : MonoBehaviour
     public AudioSource pauseMenuAudioSource;
     public AudioManagementScript audioManagementScript;
 
-
+    bool playingBgMusic;
+    bool playingPauseMusic;
 
     AudioSource audioSource;
 
@@ -52,6 +53,8 @@ public class MenuAudioScript : MonoBehaviour
         autopsyErrorClips = audioManagementScript.autopsyErrorClips;
         confrontClips = audioManagementScript.confrontClips;
         audioSource = GetComponent<AudioSource>();
+        playingBgMusic = true;
+        playingPauseMusic = false;
     }
     // Start is called before the first frame update
     void Start()
@@ -62,14 +65,25 @@ public class MenuAudioScript : MonoBehaviour
 
     void PlayMain() {
         mainMenuClips.SetSourceClip(audioSource);
-        audioSource.loop = true;
         audioSource.Play();
+        playingBgMusic = true;
+        playingPauseMusic = false;
+    }
+
+    public bool SetMainClip(AudioGroup clips) {
+        if (mainMenuClips == clips) {
+            return false;
+        }
+        mainMenuClips = clips;
+        PlayMain();
+        return true;
     }
 
     void PlayPause() {
         pauseMenuClips.SetSourceClip(audioSource);
-        audioSource.loop = true;
         audioSource.Play();
+        playingBgMusic = true;
+        playingPauseMusic = true;
     }
 
     public void MainToPause() {
@@ -86,6 +100,7 @@ public class MenuAudioScript : MonoBehaviour
         transitionClips.SetSourceClip(audioSource);
         audioSource.loop = false;
         audioSource.Play();
+        playingBgMusic = false;
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(audioSource.clip.length + 0.5f);
         PlayPause();
@@ -96,6 +111,7 @@ public class MenuAudioScript : MonoBehaviour
         transitionBackClips.SetSourceClip(audioSource);
         audioSource.loop = false;
         audioSource.Play();
+        playingBgMusic = false;
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(audioSource.clip.length + 0.5f);
         PlayMain();
@@ -144,6 +160,18 @@ public class MenuAudioScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (playingBgMusic) {
+            if (!audioSource.isPlaying) {
+
+                if (playingPauseMusic)
+                {
+                    audioSource.clip = pauseMenuClips.Sample();
+                }
+                else {
+                    audioSource.clip = mainMenuClips.Sample();
+                }
+                audioSource.Play();
+            }
+        }
     }
 }
