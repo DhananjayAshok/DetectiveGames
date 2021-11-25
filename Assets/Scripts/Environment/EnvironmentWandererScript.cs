@@ -67,7 +67,7 @@ public class EnvironmentWandererScript : MonoBehaviour
             animator.SetInteger("RNGInt", Random.Range(0, noDestinationAnimationClips));
             animator.SetBool("isMoving", false);
         }
-        if (atGoalClips != null && atGoalClips.getNoClips() > 0)
+        if (atGoalClips != null && atGoalClips.getNoClips() > 0 && !playingPlayerClip)
         {
             audioSource.clip = atGoalClips.Sample();
             audioSource.Play();
@@ -97,8 +97,6 @@ public class EnvironmentWandererScript : MonoBehaviour
         playingPlayerClip = true;
         if (playerInteractionClips != null && playerInteractionClips.getNoClips() > 0)
         {
-            audioSource.clip = movingClips.Sample();
-            audioSource.Play();
             audioSource.clip = playerInteractionClips.Sample();
             audioSource.Play();
             yield return new WaitForSeconds(audioSource.clip.length + 2f);
