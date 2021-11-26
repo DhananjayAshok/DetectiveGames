@@ -5,14 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class GodScript : MonoBehaviour
 {
-    public int noClues = 10; // Should store the number of different clues that could be added. 
+    [Header("Game Variables")]
+    [Tooltip("Max Number of clues that can be found")]
+    public int noClues = 10;
+    [Tooltip("Max Number of suspects that could be found")]
     public int noSuspects = 50; // Should store the maximum number of suspects+witnesses+humans you can speak to. 
+    [Tooltip("Max Number of Lab Reports available")]
     public int noAvailableAutopsies = 5; // Should store the maximum number of allowable autopsies. 
+    [Tooltip("Max Number of Confrontations available per suspect")]
     public int noAvailableConfrontations = 5; // Should store the maximum number of confrontations per suspect.
+
+    [Space(10)]
+    [Header("Scene Management Variables")]
+    [Tooltip("Scene Name of the first scene part of the Scene 2 set")]
+    public string scene2First = "Scene 2";
+    [Tooltip("Scene Name of the first scene part of the Scene 3/ Courtroom set")]
+    public string scene3First = "Scene 3";
+    [Tooltip("Scene Name of the loading scene if any.")]
+    public string loadingScene = "null";
+
     [HideInInspector]
     public int noAutopsiesPerformed = 0;
     [HideInInspector]
     public int noCluesDiscovered = 0;
+    [HideInInspector]
     public int noSuspectsDiscovered = 0;
     [HideInInspector]
     public ClueObject[] discoveredClues;
@@ -25,6 +41,7 @@ public class GodScript : MonoBehaviour
     [HideInInspector]
     public bool accusedSuspectReasonable;
     CourtGodScript courtGodScript;
+    string nextScene = null;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +50,6 @@ public class GodScript : MonoBehaviour
         discoveredClues = new ClueObject[noClues];
         discoveredSuspects = new string[noSuspects];
         courtGodScript = GetComponent<CourtGodScript>();
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     public void addClue(ClueScript cs)
@@ -90,6 +106,7 @@ public class GodScript : MonoBehaviour
         if (roundNumber == 1)
         {
             roundNumber = 2; // Should be 2
+            nextScene = scene2First;
             SceneManager.LoadScene(2); // should be 2 if you have a main menu should be 1 if u dont
         }
         else if (roundNumber == 2)
@@ -97,11 +114,31 @@ public class GodScript : MonoBehaviour
             if (accusedSuspectReasonable)
             {
                 roundNumber = 3;
-                SceneManager.LoadScene(3);
+                nextScene = scene3First;
+                SceneManager.sceneLoaded += OnCourtroomSceneLoaded;
             }
             else {
                 Debug.Log("Not Yet Implemented");
             }
+        }
+    }
+
+    public void SceneChangeInternal(string nextScene) {
+        this.nextScene = nextScene;
+
+    }
+
+    public void SendToLoadingScreen() {
+        if (loadingScene == null)
+        {
+            SceneManager.LoadScene(nextScene);
+        }
+        else if (loadingScene == "null")
+        {
+            SceneManager.LoadScene(nextScene);
+        }
+        else {
+            SceneManager.LoadScene(loadingScene);
         }
     }
 
@@ -119,13 +156,15 @@ public class GodScript : MonoBehaviour
         }
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    void OnCourtroomSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (roundNumber == 3) {
             DeleteNonAccusedObjects();
             courtGodScript.Initialize(discoveredClues, noCluesDiscovered, discoveredSuspects, noSuspectsDiscovered);
         }
     }
+
+
 
     // Update is called once per frame
     void Update()
