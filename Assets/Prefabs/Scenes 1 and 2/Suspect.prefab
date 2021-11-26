@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 8846334905011092120}
   m_Layer: 0
   m_Name: Suspect
-  m_TagString: suspect
+  m_TagString: suspectParent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,23 +175,23 @@ MonoBehaviour:
     clips: []
   afterAccusedClips:
     clips: []
-  isGuilty: 0
-  hasBeenAccused: 0
-  hasBeenSpokenTo: 0
-  hasBeenConfronted: 0
-  nameText: {fileID: 446578743721991643}
-  suspectName: Suspect Name Goes Here
-  treeCreationScript: {fileID: 0}
   defaultConfrontationResponse:
     clips:
     - {fileID: 8300000, guid: 2b6a8ae7e1fceca498ce90b1ba0f8f48, type: 3}
+  suspectName: Suspect Name Goes Here
+  isReasonableSuspect: 0
   confrontations: []
+  nameText: {fileID: 446578743721991643}
+  treeCreationScript: {fileID: 0}
+  animator: {fileID: 0}
+  hasBeenAccused: 0
+  hasBeenSpokenTo: 0
+  noConfrontations: 0
   defaultConfrontation:
     clueName: 
     responses:
       clips: []
     isSuccessfulConfrontation: 0
-  animator: {fileID: 0}
 --- !u!82 &8846334905011092120
 AudioSource:
   m_ObjectHideFlags: 0
