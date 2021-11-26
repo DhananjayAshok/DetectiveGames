@@ -35,11 +35,11 @@ public class InteractionScript : MonoBehaviour
 
     GameObject currentClue;
     GameObject currentSuspect;
+    bool inPortal;
+    TeleporterScript currentTeleporter;
+    InternalPortalScript currentInternalPortal;
     int counter = 0;
     int accuseCount = 50;
-    bool inPortal;
-    bool inTeleporter;
-    TeleporterScript currentTeleporter;
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +73,10 @@ public class InteractionScript : MonoBehaviour
 
     TeleporterScript getCurrentTeleporterScriptFromCollider(Collider collider) {
         return collider.gameObject.GetComponent<TeleporterScript>();
+    }
+
+    InternalPortalScript getCurrentInteralPortalScriptFromCollider(Collider collider) {
+        return collider.gameObject.GetComponent<InternalPortalScript>();
     }
 
     void OnTriggerEnter(Collider collider) {
@@ -112,9 +116,13 @@ public class InteractionScript : MonoBehaviour
         }
         else if (collider.tag == "teleporter")
         {
-            inTeleporter = true;
             interactionButton.SetActive(true);
             currentTeleporter = getCurrentTeleporterScriptFromCollider(collider);
+        }
+        else if (collider.tag == "internal portal")
+        {
+            interactionButton.SetActive(true);
+            currentInternalPortal = getCurrentInteralPortalScriptFromCollider(collider);
         }
 
     }
@@ -142,14 +150,18 @@ public class InteractionScript : MonoBehaviour
         }
         else if (collider.tag == "teleporter")
         {
-            inTeleporter = false;
             interactionButton.SetActive(false);
             currentTeleporter = null;
+        }
+        else if (collider.tag == "internal portal")
+        {
+            interactionButton.SetActive(false);
+            currentInternalPortal = null;
         }
     }
 
     void Interact() {
-        if (currentClue == null && currentSuspect == null && !inPortal && !inTeleporter)
+        if (currentClue == null && currentSuspect == null && !inPortal && currentTeleporter == null && currentInternalPortal == null)
         {
             audioSource.clip = bugClips.Sample();
             audioSource.Play();
@@ -196,9 +208,13 @@ public class InteractionScript : MonoBehaviour
         {
             playerPortalScript.ActivatePortal();
         }
-        else if (inTeleporter)
+        else if (currentTeleporter != null)
         {
             currentTeleporter.Teleport();
+        }
+        else if (currentInternalPortal != null)
+        {
+            currentInternalPortal.Activate();
         }
         else {
             Debug.Log("Error");
