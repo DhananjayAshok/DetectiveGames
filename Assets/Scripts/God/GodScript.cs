@@ -40,8 +40,9 @@ public class GodScript : MonoBehaviour
     public string accusedSuspect;
     [HideInInspector]
     public bool accusedSuspectReasonable;
+    [HideInInspector]
+    public string nextScene = null;
     CourtGodScript courtGodScript;
-    string nextScene = null;
 
     // Start is called before the first frame update
     void Start()
@@ -107,7 +108,7 @@ public class GodScript : MonoBehaviour
         {
             roundNumber = 2; // Should be 2
             nextScene = scene2First;
-            SceneManager.LoadScene(2); // should be 2 if you have a main menu should be 1 if u dont
+            SendToLoadingScene();
         }
         else if (roundNumber == 2)
         {
@@ -115,6 +116,7 @@ public class GodScript : MonoBehaviour
             {
                 roundNumber = 3;
                 nextScene = scene3First;
+                SendToLoadingScene();
                 SceneManager.sceneLoaded += OnCourtroomSceneLoaded;
             }
             else {
@@ -125,10 +127,10 @@ public class GodScript : MonoBehaviour
 
     public void SceneChangeInternal(string nextScene) {
         this.nextScene = nextScene;
-
+        SendToLoadingScene();
     }
 
-    public void SendToLoadingScreen() {
+    public void SendToLoadingScene() {
         if (loadingScene == null)
         {
             SceneManager.LoadScene(nextScene);
