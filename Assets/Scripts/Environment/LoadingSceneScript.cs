@@ -8,7 +8,7 @@ public class LoadingSceneScript : MonoBehaviour
     public AudioGroup loadingSceneClips;
     public AudioGroup loadingSceneBGClips;
     public AudioSource backgroundMusicSource;
-    public float loopSceneClips = false;
+    public bool loopSceneClips = false;
     public float minimumWaitTime = 20f;
     float loadStartTime;
     GodScript godScript;
