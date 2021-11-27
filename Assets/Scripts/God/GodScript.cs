@@ -133,17 +133,25 @@ public class GodScript : MonoBehaviour
     public void SendToLoadingScene() {
         if (loadingScene == null)
         {
-            SceneManager.LoadScene(nextScene);
+            StartCoroutine(LoadAsync(nextScene));
         }
         else if (loadingScene == "null")
         {
-            SceneManager.LoadScene(nextScene);
+            StartCoroutine(LoadAsync(nextScene));
         }
         else {
-            SceneManager.LoadScene(loadingScene);
+            StartCoroutine(LoadAsync(loadingScene));
         }
     }
 
+    IEnumerator LoadAsync(string sceneName)
+    {
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        while (!op.isDone)
+        {
+            yield return null;
+        }
+    }
 
     public void DeleteNonAccusedObjects() {
         GameObject[] accusedObjects = GameObject.FindGameObjectsWithTag("Accused");
