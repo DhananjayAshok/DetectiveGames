@@ -8,6 +8,7 @@ public class LoadingSceneScript : MonoBehaviour
     public AudioGroup loadingSceneClips;
     public AudioGroup loadingSceneBGClips;
     public AudioSource backgroundMusicSource;
+    public float loopSceneClips = false;
     public float minimumWaitTime = 20f;
     float loadStartTime;
     GodScript godScript;
@@ -30,15 +31,21 @@ public class LoadingSceneScript : MonoBehaviour
                 }
             }
         }
-        StartCoroutine(LoadAudio());
+        if (loadingSceneClips != null) {
+            if (loadingSceneClips.getNoClips() > 0) {
+                StartCoroutine(LoadAudio());
+            }
+        }
         StartCoroutine(LoadAsync(godScript.nextScene));
     }
 
     IEnumerator LoadAudio() {
-        while (true) {
+        bool play = true;
+        while (play) {
             audioSource.clip = loadingSceneClips.Sample();
             audioSource.Play();
             yield return new WaitForSeconds(audioSource.clip.length + 0.5f);
+            play = loopSceneClips;
         }
     }
 
