@@ -21,6 +21,21 @@ public class ConversationTree
         this.children = children;
     }
 
+    public string getTreeString(int layer=0) {
+        string layerString = "";
+        for (int iii = 0; iii < layer; iii++) {
+            layerString = layerString + "\t";
+        }
+        string treeString = layerString + "Question: " + question+"\n";
+        if (isLeaf()) {
+            return treeString;
+        }
+        foreach (ConversationTree child in this.children) {
+            treeString = treeString + child.getTreeString(layer+1);
+        }
+        return treeString;
+    }
+
     public int getNoChildren() {
         if(children == null)
         {
