@@ -41,8 +41,6 @@ public class CommonLayers : TreeCreationScript
     ArraySegment<ConversationTree> getLayer(ConversationTree[] trees, int layer_no, int no_options) {
         int start = 0;
         int end = 0;
-        int curr_layer = 0;
-        int curr_option = 0;
         if (layer_no == 0) {
             ArraySegment<ConversationTree> small_segment = new ArraySegment<ConversationTree>(trees, 0, 1);
             return small_segment;
