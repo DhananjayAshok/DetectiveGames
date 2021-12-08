@@ -127,10 +127,11 @@ public class EnvironmentWandererScript : MonoBehaviour
             }
         }
         else {
-            if (lastRandomized + randomizationTime > Time.time) {
+            if (lastRandomized + randomizationTime < Time.time) {
                 animator.SetInteger("RNGInt", Random.Range(0, noDestinationAnimationClips));
                 animator.SetBool("isMoving", true);
                 animator.SetBool("isMoving", false);
+                lastRandomized = Time.time;
             }
             
         }
