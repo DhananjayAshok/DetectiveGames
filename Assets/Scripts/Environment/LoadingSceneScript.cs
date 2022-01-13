@@ -54,7 +54,6 @@ public class LoadingSceneScript : MonoBehaviour
         AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
         loadStartTime = Time.time;
         while (!op.isDone) {
-            Debug.Log(op.progress);
             yield return null;
         }
     }

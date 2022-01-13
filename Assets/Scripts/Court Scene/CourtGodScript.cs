@@ -27,10 +27,11 @@ public class CourtGodScript : MonoBehaviour
     bool isInLOQ;
     bool isAwaitingResponse;
     LOQ currLOQ;
-    HashSet<string> currClueNames, currStatementNames;
+    string[] currClueNames, currStatementNames;
     int score;
     bool overallSuccess;
     bool initialized;
+    bool listenersInitialized = false;
     bool hasConcluded;
     float conversationWaitTime = 1f;
 
@@ -40,7 +41,8 @@ public class CourtGodScript : MonoBehaviour
         courtAnimationScript = GetComponent<CourtAnimationScript>();
     }
 
-    public void Initialize(ClueObject[] discoveredClues, int noCluesDiscovered, string[] discoveredSuspects, int noSuspectsDiscovered) {
+    public IEnumerator Initialize(ClueObject[] discoveredClues, int noCluesDiscovered, string[] discoveredSuspects, int noSuspectsDiscovered) {
+        yield return new WaitForSeconds(1f);
         this.discoveredClues = discoveredClues;
         this.noCluesDiscovered = noCluesDiscovered;
         this.discoveredSuspects = discoveredSuspects;
@@ -56,7 +58,8 @@ public class CourtGodScript : MonoBehaviour
         {
             AreNoSpectators = true;
         }
-        else {
+        else
+        {
             AreNoSpectators = (spectators[0] == null);
         }
         initialized = true;
@@ -67,17 +70,22 @@ public class CourtGodScript : MonoBehaviour
 
 
     void InitializeListeners() {
-        courtAnimationScript.Initialize(player, judge, accused, spectators);
-        courtSceneCanvasScript = GameObject.FindGameObjectWithTag("CourtSceneCanvas").GetComponent<CourtSceneCanvasScript>();
-        courtSceneCanvasScript.Initialize(this, this.discoveredClues, this.noCluesDiscovered, this.discoveredSuspects, this.noSuspectsDiscovered);
+        if (!listenersInitialized) {
+            courtAnimationScript.Initialize(player, judge, accused, spectators);
+            courtSceneCanvasScript = GameObject.FindGameObjectWithTag("CourtSceneCanvas").GetComponent<CourtSceneCanvasScript>();
+            courtSceneCanvasScript.Initialize(this, this.discoveredClues, this.noCluesDiscovered, this.discoveredSuspects, this.noSuspectsDiscovered);
+            listenersInitialized = true;
+        }
     }
 
     public void SubmitResponse() {
-        isAwaitingResponse = false;
-        currClueNames = courtSceneCanvasScript.ReadClueResponses();
-        currStatementNames = courtSceneCanvasScript.ReadStatementResponses();
-        courtSceneCanvasScript.ToggleState();
-        EndLOQ();
+        if (isAwaitingResponse) {
+            isAwaitingResponse = false;
+            currClueNames = courtSceneCanvasScript.ReadClueResponses();
+            currStatementNames = courtSceneCanvasScript.ReadStatementResponses();
+            courtSceneCanvasScript.ToggleState();
+            EndLOQ();
+        }
     }
 
     public void StartLOQ()
@@ -123,7 +131,8 @@ public class CourtGodScript : MonoBehaviour
     IEnumerator StartLOQCoroutine(LOQ nextLOQ)
     {
         currLOQ = nextLOQ;
-        while (nextLOQ.state == 0)
+        currLOQ.Initialize();
+        while (nextLOQ.isPreQuestioning())
         {
             AudioClip nextClip = nextLOQ.Step();
             Talker nextTalker = nextLOQ.getLastTalker();
@@ -133,7 +142,7 @@ public class CourtGodScript : MonoBehaviour
             courtAnimationScript.AnimateIdling();
         }
         courtAnimationScript.AnimateAccusedQuestioning();
-        while (nextLOQ.state == 1)
+        while (nextLOQ.isQuestioning())
         {
             AudioClip nextClip = nextLOQ.Step();
             Talker nextTalker = nextLOQ.getLastTalker();
@@ -145,10 +154,41 @@ public class CourtGodScript : MonoBehaviour
         courtSceneCanvasScript.ToggleState();
     }
 
+
+    public int no_s1_in_s2(string[] s1, string[] s2) {
+        // Debug.Log("Gets in Here");
+        int o = 0;
+        for (int iii = 0; iii < s1.Length; iii++) {
+            bool duplicate = false;
+            for (int kkk = iii + 1; kkk < s1.Length; kkk++) {
+                if (s1[iii] == s1[kkk]) {
+                    duplicate = true;
+                }
+            }
+            // Debug.Log("Judged " + iii.ToString() + " to be a duplicate: " + duplicate.ToString());
+            if (duplicate)
+            {
+                // Debug.Log("Taking this route");
+            }
+            else {
+                 // Debug.Log("Correct Route");
+                for (int jjj = 0; jjj < s2.Length; jjj++) {
+                    Debug.Log("Comparing " + s1[iii] + " and " + s2[jjj]);
+                    if (s1[iii] == s2[jjj]) {
+                        Debug.Log("True");
+                        o++;
+                    }
+                    Debug.Log("False");
+                }
+            }
+        }
+        return o;
+    }
+
     bool JudgeSuccess() {
-        currClueNames.IntersectWith(currLOQ.correctClueNames);
-        currStatementNames.IntersectWith(currLOQ.correctStatementNames);
-        if (currClueNames.Count + currStatementNames.Count >= currLOQ.minimumCorrectCluesAndStatementsForSuccess)
+        int noCorrectClues = no_s1_in_s2(currClueNames, currLOQ.correctCluenamesArray);
+        int noCorrectStatements = no_s1_in_s2(currStatementNames, currLOQ.correctStatementNamesArray);
+        if (noCorrectClues + noCorrectStatements >= currLOQ.minimumCorrectCluesAndStatementsForSuccess)
         {
             return true;
         }
@@ -177,7 +217,7 @@ public class CourtGodScript : MonoBehaviour
 
     IEnumerator EndLOQCoroutine(bool success) {
         courtAnimationScript.AnimateLOQConcluding(success);
-        while (currLOQ.state == 2)
+        while (currLOQ.isLOQConcluding(success))
         {
             AudioClip nextClip = currLOQ.Step(success);
             Talker nextTalker = currLOQ.getLastTalker();

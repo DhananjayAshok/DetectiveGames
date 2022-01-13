@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ public class CourtSceneCanvasScript : MonoBehaviour
     int noItemsSelected = 0;
     Animator animator;
     bool isRisen = false;
+    bool initialized = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +24,15 @@ public class CourtSceneCanvasScript : MonoBehaviour
     }
 
     public void Initialize(CourtGodScript courtGodScript, ClueObject[] clueObjects, int noCluesDiscovered, string[] suspectNames, int noSuspectsDiscovered) {
-
-        CreateToggles(clueObjects, noCluesDiscovered, suspectNames, noSuspectsDiscovered);
-        submitButton.GetComponent<Button>().onClick.AddListener(courtGodScript.SubmitResponse);
+        if (!initialized) {
+            Debug.Log("Initialize Listeners Called Here for Canvas");
+            CreateToggles(clueObjects, noCluesDiscovered, suspectNames, noSuspectsDiscovered);
+            submitButton.GetComponent<Button>().onClick.AddListener(courtGodScript.SubmitResponse);
+        }
+        initialized = true;
     }
+
+
 
 
     public void CreateToggles(ClueObject[] clueObjects, int noCluesDiscovered,  string[] suspectNames, int noSuspectsDiscovered) 
@@ -84,6 +91,7 @@ public class CourtSceneCanvasScript : MonoBehaviour
             }
         }
     }
+
 
     public void ActivateToggles() {
         for (int iii = 0; iii < clueToggles.Length + statementToggles.Length; iii++)
@@ -158,34 +166,57 @@ public class CourtSceneCanvasScript : MonoBehaviour
         ResetStatements();
     }
 
-    public HashSet<string> ReadClueResponses() {
-        HashSet<string> clueNames = new HashSet<string>();
+    public string[] ReadClueResponses() {
+        int noClues = 0;
         for (int iii = 0; iii < clueToggles.Length; iii++)
         {
             if (clueToggles[iii].GetComponent<Toggle>().isOn)
             {
-                clueNames.Add(clueToggles[iii].GetComponent<CourtClueToggleScript>().clueNameText.text);
+                noClues++;
+            }
+        }
+        Debug.Log("Found Active Clues: " + noClues.ToString());
+        string[] clueNames = new string[noClues];
+        int i = 0;
+        for (int iii = 0; iii < clueToggles.Length; iii++)
+        {
+            if (clueToggles[iii].GetComponent<Toggle>().isOn)
+            {
+                clueNames[i] = (clueToggles[iii].GetComponent<CourtClueToggleScript>().clueNameText.text);
+                i++;
             }
         }
         return clueNames;
     }
 
-    public HashSet<string> ReadStatementResponses()
+    public string[] ReadStatementResponses()
     {
-        HashSet<string> statementNames = new HashSet<string>();
+        int noStatements = 0;
         for (int iii = 0; iii < statementToggles.Length; iii++)
         {
             if (statementToggles[iii].GetComponent<Toggle>().isOn)
             {
-                statementNames.Add(statementToggles[iii].GetComponent<CourtStatementToggleScript>().statementNameText.text);
+                noStatements++;
             }
         }
-        return statementNames;
+        Debug.Log("Found Active Statements: " + noStatements.ToString());
+        string[] statements = new string[noStatements];
+        int i = 0;
+        for (int iii = 0; iii < statementToggles.Length; iii++)
+        {
+            if (statementToggles[iii].GetComponent<Toggle>().isOn)
+            {
+                statements[i] = (statementToggles[iii].GetComponent<CourtStatementToggleScript>().statementNameText.text);
+                i++;
+            }
+        }
+        return statements;
     }
 
     public void ToggleState() {
         isRisen = !isRisen;
         animator.SetBool("isRisen", isRisen);
+        ResetAll();
     }
 
     // Update is called once per frame

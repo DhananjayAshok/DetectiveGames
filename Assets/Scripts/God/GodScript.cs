@@ -76,6 +76,8 @@ public class GodScript : MonoBehaviour
             return;
         }
         for (int iii = 0; iii < noSuspectsDiscovered; iii++) {
+            Debug.Log("Discovered suspect " + ss.suspectName + " ensuring it is not " + discoveredSuspects[iii] + " will be ");
+            Debug.Log((discoveredSuspects[iii].Equals(ss.suspectName)));
             if (discoveredSuspects[iii].Equals(ss.suspectName)) {
                 return;
             }
@@ -127,6 +129,7 @@ public class GodScript : MonoBehaviour
 
     public void SceneChangeInternal(string nextScene) {
         this.nextScene = nextScene;
+        SceneManager.sceneLoaded += OnCourtroomSceneLoaded;
         SendToLoadingScene();
     }
 
@@ -168,9 +171,10 @@ public class GodScript : MonoBehaviour
 
     void OnCourtroomSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (roundNumber == 3) {
+        if (roundNumber == 3 && scene.name != loadingScene) {
             DeleteNonAccusedObjects();
-            courtGodScript.Initialize(discoveredClues, noCluesDiscovered, discoveredSuspects, noSuspectsDiscovered);
+
+            StartCoroutine(courtGodScript.Initialize(discoveredClues, noCluesDiscovered, discoveredSuspects, noSuspectsDiscovered));
         }
     }
 
